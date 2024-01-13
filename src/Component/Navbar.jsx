@@ -89,12 +89,13 @@ const Navbar = () => {
       <div className="flex items-center">
         {/* Login button on the right */}
         <div>
-          <button
+          <Link
+            to="/login"
             className="text-white px-4 py-2 rounded m-2"
             style={{ backgroundColor: "var(--button)" }}
           >
             Login
-          </button>
+          </Link>
         </div>
         {/* Button to show/hide links on smaller screens */}
         <div className="md:hidden">

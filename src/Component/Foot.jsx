@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col justify-between  md:flex-row mb-5">
         {/* Big Logo Photo */}
         <div className=" w-full md:w-1/4 ">
-          <div className="flex items-center px-10">
+          <div className="flex items-center px-10 justify-center">
             <img src="/Logo.png" alt="Company Logo" className="w-32 h-32 " />
           </div>
           <div className=" px-10">
@@ -28,11 +28,11 @@ const Footer = () => {
         </div>
 
         {/* Useful Links Section */}
-        <div className="w-full md:w-1/4 mb-4 md:mb-0 md: mt-16">
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-300 text-center">
+        <div className="w-full md:w-1/4 mb-4 md:mb-0 md: mt-16 flex flex-col items-center">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
             Useful Links
           </h3>
-          <ul className="text-sm md:text-base lg:text-lg  px-5">
+          <ul className="text-sm md:text-base lg:text-lg  px-5 flex flex-col items-start">
             <li>
               <Link to="/" className="hover:text-gray-300 text-white">
                 {arrowIcon} Home
@@ -65,11 +65,11 @@ const Footer = () => {
         </div>
 
         {/* Internship Domains Section */}
-        <div className="w-full md:w-1/4 mb-4 md:mb-0 md: mt-16">
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-300 text-center">
+        <div className="w-full md:w-1/4 mb-4 md:mb-0 md: mt-16 flex flex-col items-center">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
             Internship Domains
           </h3>
-          <ul className="text-sm md:text-base lg:text-lg px-5">
+          <ul className="text-sm md:text-base lg:text-lg px-5 flex flex-col items-start">
             <li>
               <Link
                 to="/web-development"
@@ -139,7 +139,7 @@ const Footer = () => {
 
         {/* Inbox Section */}
         <div className="w-full md:w-1/4 md: mt-16">
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-300 text-center">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
             Join Our Internship
           </h3>
           <p className="text-sm md:text-base lg:text-lg  px-5 text-center">

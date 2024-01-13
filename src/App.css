@@ -1,6 +1,20 @@
 .App {
   text-align: center;
+  
 }
+body {
+  overflow: hidden; /* Hide the scrollbar */
+}
+
+body::-webkit-scrollbar {
+  width: 0; /* Remove the scrollbar */
+}
+
+body {
+  overflow: scroll; /* Enable scrolling */
+}
+
+
 
 .App-logo {
   height: 40vmin;
