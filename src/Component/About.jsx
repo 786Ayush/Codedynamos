@@ -64,15 +64,15 @@ const About = () => {
           </div>
         </div>
         <div className="  flex items-center justify-center  flex-col-reverse sm:flex-row">
-          <div className="w-1/2 p-2 sm:p-8">
+          <div className="sm:w-1/2  p-2 sm:p-8">
             <h1 className="text-base sm:text-3xl font-bold mb-4">{activeButton}</h1>
-            <p className="text-xs sm:text-lg text-gray-800">{text}</p>
+            <p className="text-sm sm:text-lg text-gray-800">{text}</p>
           </div>
-          <div className="w-1/2 p-0 sm:p-8 ">
+          <div className="sm:w-1/2  p-0 sm:p-8 ">
             <img
               src={imageUrl}
               alt="Image"
-              className="w-full h-auto rounded-md shadow-md"
+              className="w-full h-auto rounded-md shadow-md sm:p-0 p-4 m-1"
             />
           </div>
         </div>

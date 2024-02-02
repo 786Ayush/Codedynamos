@@ -7,6 +7,9 @@ import About from "./Component/About";
 import Login from "./Component/Login";
 import Register from "./Component/Register";
 import Internships from "./Component/Internships";
+import Roadmap from "./Component/Roadmap";
+import Contact from "./Component/Contact";
+import ApplicationForm from "./Component/Applicationform";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,18 @@ const router = createBrowserRouter([
   {
     path: "/internship",
     element: <Internships/>
+  },
+  {
+    path:"/roadmap",
+    element:<Roadmap/>
+  },
+  {
+    path:"/contact",
+    element:<Contact/>
+  },
+  {
+    path:"/applicationform",
+    element:<ApplicationForm/>
   }
 ]);
 

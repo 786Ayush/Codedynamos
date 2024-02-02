@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   const LinksList = () => (
-    <div className="md:hidden absolute top-16 right-0 p-4 bg-[var(--nav-color)] w-full">
+    <div className="md:hidden absolute top-16 right-0 p-4 bg-[var(--nav-color)] w-full z-50">
       <ul>
         <li className="w-full hover:bg-zinc-600 rounded text-center">
           <Link to="/" className="text-white  ">
@@ -43,7 +43,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`relative flex justify-around items-center text-white`}
+      className={`relative flex justify-around items-center text-white z-50`}
       style={{ backgroundColor: "var(--nav-color)" }}
     >
       {/* Logo on the left */}
