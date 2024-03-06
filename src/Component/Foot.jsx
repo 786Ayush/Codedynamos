@@ -15,12 +15,12 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col justify-between  md:flex-row mb-5">
         {/* Big Logo Photo */}
         <div className=" w-full md:w-1/4 ">
-          <div className="flex items-center px-10 justify-center">
-            <img src="/Logo.png" alt="Company Logo" className="w-32 h-32 " />
+          <div className="flex items-center px-10 justify-center ">
+            <img src="/reallogo.png" alt="Company Logo" className="w-full h-full " />
           </div>
           <div className=" px-10">
             <h1 className="text-lg md:text-xl lg:text-2xl font-bold">
-              Devbuzzhub Internship
+              CodeDynamos Internship
             </h1>
             <h4>Phone: 1234567890</h4>
             <h4>Gmail: abc@gmail.com</h4>
@@ -144,7 +144,7 @@ const Footer = () => {
           </h3>
           <p className="text-sm md:text-base lg:text-lg  px-5 text-center">
             Join the Virtual Internship Program in cutting-edge technologies
-            with Devbuzzhub.
+            with CodeDynamos.
           </p>
         </div>
       </div>
@@ -152,7 +152,7 @@ const Footer = () => {
         <div className="text-white mb-2 md:mb-0 text-center md:text-left">
           <p>&copy; Copyright AnotherCompany Internship. All Rights Reserved</p>
           <p>
-            Designed by <span className="text-blue-400">Devbuzzhub </span>
+            Designed by <span className="text-blue-400">CodeDynamos </span>
           </p>
         </div>
         <div className="flex justify-center md:justify-end  items-center">

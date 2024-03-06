@@ -18,7 +18,7 @@ const Home = () => {
             </h1>
             <p className="mb-4">
               Participate in the Virtual Internship Program focused on
-              cutting-edge technologies offered by DevBuzzHub.
+              cutting-edge technologies offered by CodeDynamos.
             </p>
             <a
               href="#"
@@ -34,9 +34,10 @@ const Home = () => {
         </div>
       </div>
 
-      {/* <div className="mt-5 h-screen"> */}
-        {/* <Testimonials /> */}
-      {/* </div> */}
+      <div className="mt-5 h-screen">
+        {" "}
+        <Testimonials />
+      </div>
       <Footer />
     </>
   );
