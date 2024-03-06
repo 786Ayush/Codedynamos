@@ -29,7 +29,7 @@ const Internships = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-between flex-col bg-[#FFFFFF]">
+      <div className="flex items-center justify-between flex-col bg-gray-200">
         <div className="text-center my-8 sm:text-4xl text-xl font-bold max-w-screen-xl mx-auto p-2">
           Unleash Your Potential, Seize the Opportunity, and Embark on Your
           Internship Adventure with Us!

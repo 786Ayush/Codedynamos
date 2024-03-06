@@ -11,7 +11,7 @@ const Footer = () => {
   const arrowIcon = "→"; // Unicode character for right arrow
 
   return (
-    <footer className="bg-gray-800 text-white">
+    <footer className="bg-[var(--nav-color)] text-white"> {/* bg-gray-800*/}
       <div className="container mx-auto flex flex-col justify-between  md:flex-row mb-5">
         {/* Big Logo Photo */}
         <div className=" w-full md:w-1/4 ">

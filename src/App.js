@@ -10,6 +10,7 @@ import Internships from "./Component/Internships";
 import Roadmap from "./Component/Roadmap";
 import Contact from "./Component/Contact";
 import ApplicationForm from "./Component/Applicationform";
+import EducationalDetailsForm from "./Component/Educational";
 
 const router = createBrowserRouter([
   {
@@ -43,12 +44,16 @@ const router = createBrowserRouter([
   {
     path:"/applicationform",
     element:<ApplicationForm/>
+  },
+  {
+    path:"/educationalform",
+    element:<EducationalDetailsForm/>
   }
 ]);
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-gray-100">
       {/* <Navbar/> */}
       <RouterProvider router={router} />
       {/* <Footer/> */}
