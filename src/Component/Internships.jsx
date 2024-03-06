@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Foot";
+import { Link } from "@nextui-org/react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { MdOutlineAvTimer } from "react-icons/md";
 
@@ -45,10 +46,9 @@ const Internships = () => {
             const backgroundColor = generateRandomColor();
 
             return (
-              <div
+              <Link
                 key={index}
-                id={`internshipBox${index}`}
-                data-index={index}
+                href={`/applicationform?value=${domain.value}`}
                 className={`bg-[#FFFFFF] w-screen p-5 rounded-lg shadow-xl my-5 flex flex-col sm:flex-row justify-between items-center  font-semibold text-zinc-800 ${
                   index === InternshipDomains.length - 1 ? "mb-6" : ""
                 }`}
@@ -58,16 +58,13 @@ const Internships = () => {
                   transition: `transform 0.1s ease-in-out ${index * 0.1}s`,
                   transformOrigin: "center",
                   cursor: "pointer",
+                  textDecoration: 'none', // Ensure default link style is removed
                 }}
-                onMouseOver={() => {
-                  document.getElementById(
-                    `internshipBox${index}`
-                  ).style.transform = "scale(1.03)";
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = "scale(1.03)";
                 }}
-                onMouseOut={() => {
-                  document.getElementById(
-                    `internshipBox${index}`
-                  ).style.transform = "scale(1)";
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
                 }}
               >
                 <div className="flex items-center">
@@ -87,7 +84,7 @@ const Internships = () => {
                 <h3 className="sm:text-base text-sm font-semibold flex items-center justify-between">
                   <RiSendPlaneFill /> Remote Employment
                 </h3>
-              </div>
+              </Link>
             );
           })}
         </div>

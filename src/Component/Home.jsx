@@ -34,10 +34,10 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="mt-5 h-screen">
+      {/* <div className="mt-5 h-screen">
         {" "}
         <Testimonials />
-      </div>
+      </div> */}
       <Footer />
     </>
   );
