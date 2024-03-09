@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoArrowBackOutline } from "react-icons/io5";
-import { TbCaretRightFilled, TbCircleArrowRightFilled } from "react-icons/tb";
+
 import Navbar from "./Navbar";
 import Footer from "./Foot";
 import { FaDotCircle } from "react-icons/fa";
@@ -12,6 +12,18 @@ import { Divider } from "@nextui-org/react";
 //sector
 const ApplicationForm = () => {
   const [form, setform] = useState("basic");
+  const [resume, setResume] = useState(null);
+
+  const handleResumeChange = (e) => setResume(e.target.files[0]);
+
+  const handleResumeSubmit = (e) => {
+    e.preventDefault();
+    // Perform submission logic here
+    // You can use resume file in this function to submit the data
+    console.log("Submitted Resume:", resume);
+    // Reset form fields after submission
+    setResume(null);
+  };
   const [educationalDetails, setEducationalDetails] = useState({
     tenth_board: "",
     tenth_school: "",
@@ -63,19 +75,34 @@ const ApplicationForm = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const handleEducationalChange = (e) => {
+    const { name, value } = e.target;
+    setEducationalDetails((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setform("education");
+    const combinedData = { ...formData, educationalDetails };
 
     // You can perform further actions with the form data here
-    console.log("Form data submitted:", formData);
+    console.log("Form data submitted:", combinedData);
   };
+  const handleeducationalSubmit = (e) => {
+    e.preventDefault();
+    setform("resume");
+    const combinedData = { ...formData, educationalDetails };
 
+    // You can perform further actions with the form data here
+    console.log("Form data submitted:", combinedData);
+  };
   return (
     <div className="bg-gray-100">
       <Navbar />
-      <div className="h-[1600px] flex flex-col items-center justify-center relative">
+      <div className="h-[1700px] flex flex-col items-center justify-center relative">
         <div
           className="w-full h-[500px] absolute top-0 opacity-[75%]"
           style={{
@@ -83,6 +110,7 @@ const ApplicationForm = () => {
             backgroundSize: "cover",
           }}
         ></div>
+
         {form === "basic" && (
           <div className="p-4 md:p-6 bg-white rounded-md shadow-md w-full md:w-1/2 z-1 absolute top-[300px]">
             <Link
@@ -111,16 +139,11 @@ const ApplicationForm = () => {
               <Divider className="text-seperate h-1 w-32 mx-3" />
 
               <CiCircleChevRight className="text-primary w-7 h-7 " />
-
-              <Divider className="text-seperate h-1 w-32 mx-3" />
-
-              <CiCircleChevRight className="text-primary w-7 h-7 " />
             </div>
             <div className="flex w-full items-center justify-between">
               <span className="w-15 ">Basic Details </span>
               <span className="w-15 ">Educational Details </span>
               <span className="w-15 ">Upload Resume </span>
-              <span className="w-15 ">Additioanal Details </span>
               <span className="w-15 ">Terms and conditions </span>
               <span className="w-15 ">Review </span>
             </div>
@@ -322,16 +345,11 @@ const ApplicationForm = () => {
               <Divider className="text-seperate h-1 w-32 mx-3" />
 
               <CiCircleChevRight className="text-primary w-7 h-7 " />
-
-              <Divider className="text-seperate h-1 w-32 mx-3" />
-
-              <CiCircleChevRight className="text-primary w-7 h-7 " />
             </div>
             <div className="flex w-full items-center justify-between">
               <span className="w-15 ">Basic Details </span>
               <span className="w-15 ">Educational Details </span>
               <span className="w-15 ">Upload Resume </span>
-              <span className="w-15 ">Additioanal Details </span>
               <span className="w-15 ">Terms and conditions </span>
               <span className="w-15 ">Review </span>
             </div>
@@ -339,7 +357,7 @@ const ApplicationForm = () => {
               Educational Details
             </h2>
             <hr className="m-2 md:m-4" />
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleeducationalSubmit}>
               <div className="flex items-center m-4">
                 <label htmlFor="tenth_board">10th Board:</label>
                 <input
@@ -347,7 +365,7 @@ const ApplicationForm = () => {
                   id="tenth_board"
                   name="tenth_board"
                   value={educationalDetails["tenth_board"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -360,7 +378,7 @@ const ApplicationForm = () => {
                   id="tenth_school"
                   name="tenth_school"
                   value={educationalDetails["tenth_school"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -373,7 +391,7 @@ const ApplicationForm = () => {
                   id="tenth_percentage"
                   name="tenth_percentage"
                   value={educationalDetails["tenth_percentage"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -386,7 +404,7 @@ const ApplicationForm = () => {
                   id="twelfth_board"
                   name="twelfth_board"
                   value={educationalDetails["twelfth_board"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -399,7 +417,7 @@ const ApplicationForm = () => {
                   id="twelfth_school"
                   name="twelfth_school"
                   value={educationalDetails["twelfth_school"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -412,7 +430,7 @@ const ApplicationForm = () => {
                   id="twelfth_percentage"
                   name="twelfth_percentage"
                   value={educationalDetails["twelfth_percentage"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -427,7 +445,7 @@ const ApplicationForm = () => {
                   id="bachelor_university"
                   name="bachelor_university"
                   value={educationalDetails["bachelor_university"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -440,7 +458,7 @@ const ApplicationForm = () => {
                   id="bachelor_college"
                   name="bachelor_college"
                   value={educationalDetails["bachelor_college"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -455,7 +473,7 @@ const ApplicationForm = () => {
                   id="bachelor_percentage"
                   name="bachelor_percentage"
                   value={educationalDetails["bachelor_percentage"]}
-                  onChange={handleChange}
+                  onChange={handleEducationalChange}
                   className="m-4 p-2 border rounded bg-gray-100"
                   required
                 />
@@ -468,6 +486,71 @@ const ApplicationForm = () => {
                 Save
               </button>
             </form>
+          </div>
+        )}
+        {form === "resume" && (
+          <div className="p-4 md:p-6 bg-white rounded-md shadow-md w-full md:w-1/2 z-1 absolute top-[300px]">
+            <Link
+              to="/internship"
+              className="flex flex-start items-center text-blue-200"
+            >
+              <IoArrowBackOutline className="" />
+              <span className="p-2">Back to Job Posting</span>
+            </Link>
+
+            <div className="flex justify-center mt-4 md:mt-6 relative items-center px-5">
+              <FaRegCheckCircle className="text-primary w-5 h-5" />
+
+              <Divider className="text-seperate h-1 w-32 mx-3" />
+
+              <FaRegCheckCircle className="text-primary w-5 h-5" />
+
+              <Divider className="text-seperate h-1 w-32 mx-3" />
+
+              <FaDotCircle className="text-primary w-8 h-8 " />
+
+              <Divider className="text-seperate h-1 w-32 mx-3" />
+
+              <CiCircleChevRight className="text-primary w-7 h-7 " />
+
+              <Divider className="text-seperate h-1 w-32 mx-3" />
+
+              <CiCircleChevRight className="text-primary w-7 h-7 " />
+            </div>
+            <div className="flex w-full items-center justify-between">
+              <span className="w-15 ">Basic Details </span>
+              <span className="w-15 ">Educational Details </span>
+              <span className="w-15 ">Upload Resume </span>
+              <span className="w-15 ">Terms and conditions </span>
+              <span className="w-15 ">Review </span>
+            </div>
+            <div className=" m-5  bg-white ">
+              <h2 className="text-lg font-semibold mb-4">Submit Your Resume</h2>
+              <form onSubmit={handleResumeSubmit}>
+                <div className="mb-4">
+                  <label
+                    className="block text-sm font-medium mb-1"
+                    htmlFor="resume"
+                  >
+                    Upload Resume
+                  </label>
+                  <input
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                    type="file"
+                    id="resume"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleResumeChange}
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         )}
       </div>
