@@ -196,7 +196,6 @@ const ApplicationForm = () => {
                 </div>
 
                 <hr className="m-4" />
-
                 <div className="flex items-center m-4">
                   <label htmlFor="firstName">
                     First Name<span className="text-red-500">*</span>:
@@ -207,6 +206,15 @@ const ApplicationForm = () => {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
+                    onKeyPress={(e) => {
+                      const charCode = e.charCode;
+                      if (
+                        !(charCode >= 65 && charCode <= 90) &&
+                        !(charCode >= 97 && charCode <= 122)
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
                     className="m-4 p-2 border rounded bg-gray-100"
                     placeholder="John"
                     required
@@ -221,6 +229,15 @@ const ApplicationForm = () => {
                     name="middleName"
                     value={formData.middleName}
                     onChange={handleChange}
+                    onKeyPress={(e) => {
+                      const charCode = e.charCode;
+                      if (
+                        !(charCode >= 65 && charCode <= 90) &&
+                        !(charCode >= 97 && charCode <= 122)
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
                     className="m-4 p-2 border rounded bg-gray-100"
                   />
                 </div>
@@ -235,6 +252,15 @@ const ApplicationForm = () => {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
+                    onKeyPress={(e) => {
+                      const charCode = e.charCode;
+                      if (
+                        !(charCode >= 65 && charCode <= 90) &&
+                        !(charCode >= 97 && charCode <= 122)
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
                     placeholder="Mehta"
                     className="m-4 p-2 border rounded bg-gray-100"
                     required
@@ -242,7 +268,6 @@ const ApplicationForm = () => {
                 </div>
 
                 <hr className="m-4" />
-
                 <div className="flex items-center m-4">
                   <label htmlFor="phoneNumber" className="mr-4">
                     Phone Number<span className="text-red-500">*</span>:
@@ -255,7 +280,14 @@ const ApplicationForm = () => {
                     onChange={handleChange}
                     placeholder="0000-0000-00"
                     className="m-4 p-2 border rounded bg-gray-100"
+                    pattern="[0-9-]{1,}"
                     required
+                    onKeyPress={(e) => {
+                      const isValidInput = /[0-9-]/.test(e.key);
+                      if (!isValidInput) {
+                        e.preventDefault();
+                      }
+                    }}
                   />
                 </div>
 
@@ -271,9 +303,15 @@ const ApplicationForm = () => {
                     value={formData.alternateNumber}
                     onChange={handleChange}
                     className="m-4 p-2 border rounded bg-gray-100"
+                    pattern="[0-9-]{1,}"
+                    onKeyPress={(e) => {
+                      const isValidInput = /[0-9-]/.test(e.key);
+                      if (!isValidInput) {
+                        e.preventDefault();
+                      }
+                    }}
                   />
                 </div>
-
                 <div className="flex items-center m-4">
                   <label htmlFor="emailAddress" className="mr-4">
                     Email Address<span className="text-red-500">*</span>:
@@ -286,12 +324,13 @@ const ApplicationForm = () => {
                     value={formData.emailAddress}
                     onChange={handleChange}
                     className="m-4 p-2 border rounded bg-gray-100"
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                    title="Please enter a valid email address"
                     required
                   />
                 </div>
 
                 <hr className="m-4" />
-
                 <div className="flex items-center m-4">
                   <label htmlFor="githubLink" className="mr-4">
                     GitHub Link<span className="text-red-500">*</span>:
@@ -303,6 +342,8 @@ const ApplicationForm = () => {
                     value={formData.githubLink}
                     onChange={handleChange}
                     className="m-4 p-2 border rounded bg-gray-100"
+                    pattern="https?://.+"
+                    title="Please enter a valid URL starting with http:// or https://"
                     required
                   />
                 </div>
@@ -318,6 +359,8 @@ const ApplicationForm = () => {
                     value={formData.linkedinAddress}
                     onChange={handleChange}
                     className="m-4 p-2 border rounded bg-gray-100"
+                    pattern="https?://.+"
+                    title="Please enter a valid URL starting with http:// or https://"
                     required
                   />
                 </div>
