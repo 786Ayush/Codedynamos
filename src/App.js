@@ -5,16 +5,16 @@ import Home from "./Component/Home";
 import About from "./Component/About";
 
 import Login from "./Component/Login";
-import Register from "./Component/Register";
+
 import Internships from "./Component/Internships";
 import Roadmap from "./Component/Roadmap";
 import Contact from "./Component/Contact";
-import ApplicationForm from "./Component/Applicationform";
-import EducationalDetailsForm from "./Component/Educational";
+
 import OfferLetter from "./Component/OfferLetter";
 
 import Dashboard from "./Component/StudentDashboard";
 import AdminDashboard from "./Component/AdminDashboard";
+import ApplicationForm from "./Component/Application/Applicationform";
 
 const router = createBrowserRouter([
   {
@@ -29,10 +29,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/register",
-    element: <Register />,
-  },
+
   {
     path: "/internship",
     element: <Internships />,
@@ -49,10 +46,7 @@ const router = createBrowserRouter([
     path: "/applicationform",
     element: <ApplicationForm />,
   },
-  {
-    path: "/educationalform",
-    element: <EducationalDetailsForm />,
-  },
+
   {
     path: "/offerletter",
     element: <OfferLetter />,

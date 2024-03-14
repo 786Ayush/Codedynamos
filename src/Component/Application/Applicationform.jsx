@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoArrowBackOutline } from "react-icons/io5";
 
-import Navbar from "./Navbar";
-import Footer from "./Foot";
+import Navbar from "../Navbar";
+import Footer from "../Foot";
 import { FaDotCircle } from "react-icons/fa";
 import { CiCircleChevRight } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { Divider } from "@nextui-org/react";
+import { insertDetails } from "./Application";
 
 //sector
 const ApplicationForm = () => {
@@ -23,15 +24,6 @@ const ApplicationForm = () => {
 
   //-------------------------------------------------------------------------------------------------
   const handleResumeChange = (e) => setResume(e.target.files[0]);
-
-  const handleResumeSubmit = (e) => {
-    e.preventDefault();
-    // Perform submission logic here
-    // You can use resume file in this function to submit the data
-    console.log("Submitted Resume:", resume);
-    // Reset form fields after submission
-    setResume(null);
-  };
 
   //---------------------------------------------------------------------------------------------------
   const [educationalDetails, setEducationalDetails] = useState({
@@ -97,9 +89,17 @@ const ApplicationForm = () => {
     e.preventDefault();
     setform(sector);
     const combinedData = { ...formData, educationalDetails };
-
-    // You can perform further actions with the form data here
-    console.log("Form data submitted:", combinedData);
+    console.log(combinedData);
+    // Call insertDetails function to submit combined data
+    // insertDetails(combinedData)
+    //   .then((response) => {
+    //     console.log("Data inserted successfully:", response);
+    //     // Perform further actions if needed
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error inserting data:", error);
+    //     // Handle error
+    //   });
   };
   return (
     <div className="bg-gray-100">
