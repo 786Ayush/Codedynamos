@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Foot";
 import Testimonials from "./Testimonials";
+import FaQ from "./FaQs";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -20,24 +22,26 @@ const Home = () => {
               Participate in the Virtual Internship Program focused on
               cutting-edge technologies offered by CodeDynamos.
             </p>
-            <a
-              href="#"
+            <Link
+              to={"/internship"}
               className="inline-block px-6 py-3 text-white rounded bg-[var(--button)] transition duration-300 hover:bg-blue-500 hover:text-white"
               // style={{
               //   backgroundColor: "#3490dc", // Default button color
               // }}
             >
               Apply now
-            </a>
+            </Link>
           </div>
           <div className="w-1/2"></div>
         </div>
       </div>
 
-      {/* <div className="mt-5 h-screen">
+      <div className=" ">
         {" "}
         <Testimonials />
-      </div> */}
+      </div>
+      <hr />
+      <FaQ />
       <Footer />
     </>
   );

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FaUser, FaSignOutAlt } from "react-icons/fa";
 import Chart from "chart.js/auto";
 import CheckboxBar from "./Checkbox";
+import Questions from "./Questions";
+import DetailedQuestion from "./DetailedQuestion";
 
 const AdminDashboard = () => {
-  const [selectedOption, setSelectedOption] = useState("Option1");
+  const [selectedOption, setSelectedOption] = useState(0);
 
   const handleOptionChange = (optionId) => {
     setSelectedOption(optionId);
@@ -95,9 +97,9 @@ const AdminDashboard = () => {
 
   const options = [
     { id: 0, name: "Option 1", content: <ChartContent /> },
-    { id: 2, name: "Option 2", content: <CheckboxBar/> },
-    { id: 3, name: "Option 3", content: "Option 3 Content" },
-    { id: 4, name: "Option 4", content: "Option 4 Content" },
+    { id: 2, name: "Option 2", content: <CheckboxBar /> },
+    { id: 3, name: "Option 3", content: <Questions /> },
+    { id: 4, name: "Option 4", content: <DetailedQuestion /> },
   ];
 
   return (

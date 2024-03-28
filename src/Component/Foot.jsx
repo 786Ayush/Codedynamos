@@ -11,28 +11,34 @@ const Footer = () => {
   const arrowIcon = "→"; // Unicode character for right arrow
 
   return (
-    <footer className="bg-[var(--nav-color)] text-white"> {/* bg-gray-800*/}
-      <div className="container mx-auto flex flex-col justify-between  md:flex-row mb-5">
+    <footer className="bg-[var(--nav-color)] text-white">
+      {" "}
+      {/* bg-gray-800*/}
+      <div className="container mx-auto flex flex-col justify-between  lg:flex-row mb-5">
         {/* Big Logo Photo */}
-        <div className=" w-full md:w-1/4 ">
+        <div className=" w-full lg:w-1/4 ">
           <div className="flex items-center px-10 justify-center ">
-            <img src="/reallogo.png" alt="Company Logo" className="w-full h-full " />
+            <img
+              src="/reallogo.png"
+              alt="Company Logo"
+              className="w-full h-full "
+            />
           </div>
-          <div className=" px-10">
-            <h1 className="text-lg md:text-xl lg:text-2xl font-bold">
+          <div className=" px-10 text-center">
+            <h1 className="text-lg lg:text-xl lg:text-2xl font-bold">
               CodeDynamos Internship
             </h1>
-            <h4>Phone: 1234567890</h4>
-            <h4>Gmail: abc@gmail.com</h4>
+
+            <h4 ><span className="sm:block lg:inline">Gmail:</span> dynamoscode@gmail.com</h4>
           </div>
         </div>
 
         {/* Useful Links Section */}
-        <div className="w-full md:w-1/4 mb-4 md:mb-0 md: mt-16 flex flex-col items-center">
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
+        <div className="w-full lg:w-1/4 mb-4 lg:mb-0 lg: mt-16 flex flex-col items-center">
+          <h3 className="text-xl lg:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
             Useful Links
           </h3>
-          <ul className="text-sm md:text-base lg:text-lg  px-5 flex flex-col items-start">
+          <ul className="text-sm lg:text-base lg:text-lg  px-5 flex flex-col items-start">
             <li>
               <Link to="/" className="hover:text-gray-300 text-white">
                 {arrowIcon} Home
@@ -65,11 +71,11 @@ const Footer = () => {
         </div>
 
         {/* Internship Domains Section */}
-        <div className="w-full md:w-1/4 mb-4 md:mb-0 md: mt-16 flex flex-col items-center">
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
+        <div className="w-full lg:w-1/4 mb-4 lg:mb-0 lg: mt-16 flex flex-col items-center">
+          <h3 className="text-xl lg:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
             Internship Domains
           </h3>
-          <ul className="text-sm md:text-base lg:text-lg px-5 flex flex-col items-start">
+          <ul className="text-sm lg:text-base lg:text-lg px-5 flex flex-col items-start">
             <li>
               <Link
                 to="/web-development"
@@ -138,24 +144,24 @@ const Footer = () => {
         </div>
 
         {/* Inbox Section */}
-        <div className="w-full md:w-1/4 md: mt-16">
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
+        <div className="w-full lg:w-1/4 lg: mt-16">
+          <h3 className="text-xl lg:text-2xl lg:text-3xl font-bold mb-4 text-gray-400 text-center">
             Join Our Internship
           </h3>
-          <p className="text-sm md:text-base lg:text-lg  px-5 text-center">
+          <p className="text-sm lg:text-base lg:text-lg  px-5 text-center">
             Join the Virtual Internship Program in cutting-edge technologies
             with CodeDynamos.
           </p>
         </div>
       </div>
-      <div className="bg-[var(--nav-color)] flex flex-col md:flex-row p-3 text-sm justify-around">
-        <div className="text-white mb-2 md:mb-0 text-center md:text-left">
+      <div className="bg-[var(--nav-color)] flex flex-col lg:flex-row p-3 text-sm justify-around">
+        <div className="text-white  lg:mb-0 text-center lg:text-left">
           <p>&copy; Copyright AnotherCompany Internship. All Rights Reserved</p>
           <p>
             Designed by <span className="text-blue-400">CodeDynamos </span>
           </p>
         </div>
-        <div className="flex justify-center md:justify-end  items-center">
+        <div className="flex justify-center lg:justify-end  items-center">
           {/* Instagram Button */}
           <a
             href="https://www.instagram.com/"
@@ -163,7 +169,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-white p-3 rounded-full"
           >
-            <FaInstagram className="w-6 h-6 md:w-8 md:h-8 hover:text-gray-300" />
+            <FaInstagram className="w-6 h-6 lg:w-8 lg:h-8 hover:text-gray-300" />
           </a>
 
           {/* LinkedIn Button */}
@@ -173,7 +179,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-white p-3 rounded-full"
           >
-            <FaLinkedin className="w-6 h-6 md:w-8 md:h-8 hover:text-gray-300" />
+            <FaLinkedin className="w-6 h-6 lg:w-8 lg:h-8 hover:text-gray-300" />
           </a>
 
           {/* WhatsApp Button */}
@@ -183,7 +189,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-white p-3 rounded-full"
           >
-            <FaWhatsapp className="w-6 h-6 md:w-8 md:h-8 hover:text-gray-300" />
+            <FaWhatsapp className="w-6 h-6 lg:w-8 lg:h-8 hover:text-gray-300" />
           </a>
 
           {/* Facebook Button */}
@@ -193,7 +199,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-white p-3 rounded-full"
           >
-            <FaFacebook className="w-6 h-6 md:w-8 md:h-8 hover:text-gray-300" />
+            <FaFacebook className="w-6 h-6 lg:w-8 lg:h-8 hover:text-gray-300" />
           </a>
         </div>
       </div>

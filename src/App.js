@@ -13,8 +13,9 @@ import Contact from "./Component/Contact";
 import OfferLetter from "./Component/OfferLetter";
 
 import Dashboard from "./Component/StudentDashboard";
-import AdminDashboard from "./Component/AdminDashboard";
+
 import ApplicationForm from "./Component/Application/Applicationform";
+import AdminDashboard from "./Component/AdminDashboard/AdminDashboard";
 
 const router = createBrowserRouter([
   {

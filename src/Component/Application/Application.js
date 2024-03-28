@@ -1,7 +1,7 @@
 export function insertDetails(userData) {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await fetch("/insertDetails", {
+        const response = await fetch("https:localhost:8000/insertDetails", {
           method: "POST",
           body: JSON.stringify(userData),
           headers: {
