@@ -38,7 +38,8 @@ const Questions = () => {
         return (
           <Link
             key={index}
-            href={`/applicationform?value=${domain.value}`}
+             to={`/admindashboard/questions/detail?index=${domain.index}`}
+
             className={`bg-[#FFFFFF] p-5 rounded-lg shadow-xl my-5 flex flex-col sm:flex-row justify-between items-center  font-semibold text-zinc-800 ${
               index === InternshipDomains.length - 1 ? "mb-6" : ""
             }`}
