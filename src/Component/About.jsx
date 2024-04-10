@@ -12,7 +12,7 @@ const About = () => {
   const handleButtonClick = (buttonText) => {
     if (buttonText === "Our-Organization")
       setText(
-        "At TechMinds Academy, our vision is to revolutionize tech education and stand as a beacon for cultivating the leaders of tomorrow from today’s    emerging talents. We are dedicated to building a worldwide community of    proficient professionals equipped to confront the future's challenges,    steer innovation, and champion with unwavering integrity. Our dream is    to foster a global environment where perpetual learning, hands-on    experience, and collaborative discovery serve as the fundamental pillars    for every aspiring tech professional’s transformative journey."
+        "At CodeDynamos, our vision is to revolutionize tech education and stand as a beacon for cultivating the leaders of tomorrow from today’s    emerging talents. We are dedicated to building a worldwide community of    proficient professionals equipped to confront the future's challenges,    steer innovation, and champion with unwavering integrity. Our dream is    to foster a global environment where perpetual learning, hands-on    experience, and collaborative discovery serve as the fundamental pillars    for every aspiring tech professional’s transformative journey."
       );
     else if (buttonText === "Our Key Features")
       setText(

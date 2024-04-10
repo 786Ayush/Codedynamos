@@ -29,7 +29,10 @@ const Footer = () => {
               CodeDynamos Internship
             </h1>
 
-            <h4 ><span className="sm:block lg:inline">Gmail:</span> dynamoscode@gmail.com</h4>
+            <h4>
+              <span className="sm:block lg:inline">Gmail:</span>{" "}
+              dynamoscode@gmail.com
+            </h4>
           </div>
         </div>
 
@@ -50,15 +53,12 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link
-                to="/internship-domains"
-                className="hover:text-gray-300 text-white"
-              >
+              <Link to="/internship" className="hover:text-gray-300 text-white">
                 {arrowIcon} Internship Domains
               </Link>
             </li>
             <li>
-              <Link to="/roadmaps" className="hover:text-gray-300 text-white">
+              <Link to="/roadmap" className="hover:text-gray-300 text-white">
                 {arrowIcon} Roadmaps
               </Link>
             </li>
@@ -78,7 +78,7 @@ const Footer = () => {
           <ul className="text-sm lg:text-base lg:text-lg px-5 flex flex-col items-start">
             <li>
               <Link
-                to="/web-development"
+                to="/applicationform?value=Web%20Development%20Intern"
                 className="hover:text-gray-300 text-white"
               >
                 {arrowIcon} Web Development
@@ -86,7 +86,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/graphic-design"
+                to="/applicationform?value=Graphics%20Design%20Intern"
                 className="hover:text-gray-300 text-white"
               >
                 {arrowIcon} Graphic Design
@@ -94,7 +94,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/data-science"
+                to="/applicationform?value=Data%20Science%20Intern"
                 className="hover:text-gray-300 text-white"
               >
                 {arrowIcon} Data Science
@@ -102,7 +102,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/artificial-intelligence"
+                to="/applicationform?value=Artificial%20Intelligence%20Intern"
                 className="hover:text-gray-300 text-white"
               >
                 {arrowIcon} Artificial Intelligence
@@ -110,7 +110,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/python-development"
+                to="/applicationform?value=Python%20Development%20Intern"
                 className="hover:text-gray-300 text-white"
               >
                 {arrowIcon} Python Development
@@ -118,7 +118,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/android-development"
+                to="/applicationform?value=Android%20Development%20Intern"
                 className="hover:text-gray-300 text-white"
               >
                 {arrowIcon} Android Development
@@ -126,7 +126,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/java-development"
+                to="/applicationform?value=Java%20Development%20Intern"
                 className="hover:text-gray-300 text-white"
               >
                 {arrowIcon} Java Development
@@ -134,7 +134,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/content-writer"
+                to="/applicationform?value=Content%20Writer%20Intern"
                 className="hover:text-gray-300 text-white"
               >
                 {arrowIcon} Content Writer

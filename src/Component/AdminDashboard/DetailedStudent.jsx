@@ -49,6 +49,10 @@ const StudentDetailPage = () => {
     },
     questionInfo: {
       studentId: 1,
+      firstQuestion: "What is the solution to the first question?",
+      secondQuestion: "What is the solution to the second question?",
+      thirdQuestion: "What is the solution to the third question?",
+      fourthQuestion: "What is the solution to the fourth question?",
       firstQuestionLiveLink: "https://example.com/firstquestion",
       firstQuestionGithubLink: "https://github.com/johndoe/firstquestion",
       secondQuestionLiveLink: "https://example.com/secondquestion",
@@ -79,7 +83,7 @@ const StudentDetailPage = () => {
   };
 
   return (
-    <div className="container mx-auto bg-white">
+    <div className=" h-[80vh] overflow-scroll bg-white m-4 p-3">
       <h1 className="text-2xl font-bold mb-4">Student Details</h1>
 
       {/* Basic Information */}
@@ -98,76 +102,10 @@ const StudentDetailPage = () => {
         {/* Add more details as needed */}
       </section>
 
-      {/* Offer Information */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Offer Information</h2>
-        <p>
-          <strong>Offer Letter:</strong>{" "}
-          {studentData.offerInfo.offerLetter ? "Received" : "Not Received"}
-        </p>
-        <p>
-          <strong>Offer Letter Date:</strong>{" "}
-          {studentData.offerInfo.offerLetterDate}
-        </p>
-        <p>
-          <strong>Response of Task:</strong>{" "}
-          {studentData.offerInfo.responseOfTask ? "Received" : "Not Received"}
-        </p>
-        <p>
-          <strong>Response of Task Date:</strong>{" "}
-          {studentData.offerInfo.responseOfTaskDate}
-        </p>
-        <p>
-          <strong>Completion Certificate:</strong>{" "}
-          {studentData.offerInfo.completionCertificate
-            ? "Received"
-            : "Not Received"}
-        </p>
-        <p>
-          <strong>Completion Certificate Date:</strong>{" "}
-          {studentData.offerInfo.completionCertificateDate
-            ? studentData.offerInfo.completionCertificateDate
-            : "N/A"}
-        </p>
-        <p>
-          <strong>Letter of Recommendation:</strong>{" "}
-          {studentData.offerInfo.letterOfRecommendation
-            ? "Received"
-            : "Not Received"}
-        </p>
-        <p>
-          <strong>Letter of Recommendation Date:</strong>{" "}
-          {studentData.offerInfo.letterOfRecommendationDate}
-        </p>
-        <p>
-          <strong>Goodies:</strong>{" "}
-          {studentData.offerInfo.goodies ? "Received" : "Not Received"}
-        </p>
-        <p>
-          <strong>Goodies Received Date:</strong>{" "}
-          {studentData.offerInfo.goodiesReceivedDate}
-        </p>
-        <p>
-          <strong>Payment:</strong>{" "}
-          {studentData.offerInfo.payment ? "Paid" : "Not Paid"}
-        </p>
-        <p>
-          <strong>Payment Amount:</strong> $
-          {studentData.offerInfo.paymentAmount}
-        </p>
-        <p>
-          <strong>Payment Date:</strong> {studentData.offerInfo.paymentDate}
-        </p>
-        <p>
-          <strong>Payment Description:</strong>{" "}
-          {studentData.offerInfo.paymentDescription}
-        </p>
-      </section>
-
       {/* Education Information */}
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Education Information</h2>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold mb-2">10th Grade</h3>
             <p>
@@ -212,10 +150,129 @@ const StudentDetailPage = () => {
         </div>
       </section>
 
+      <div className="flex md:flex-row flex-col">
+        {/* Offer Information */}
+        <section className="mb-8 w-1/2">
+          <h2 className="text-xl font-semibold mb-4">Offer Information</h2>
+          <p>
+            <strong>Offer Letter:</strong>{" "}
+            {studentData.offerInfo.offerLetter ? "Received" : "Not Received"}
+          </p>
+          <p>
+            <strong>Offer Letter Date:</strong>{" "}
+            {studentData.offerInfo.offerLetterDate}
+          </p>
+          <p>
+            <strong>Response of Task:</strong>{" "}
+            {studentData.offerInfo.responseOfTask ? "Received" : "Not Received"}
+          </p>
+          <p>
+            <strong>Response of Task Date:</strong>{" "}
+            {studentData.offerInfo.responseOfTaskDate}
+          </p>
+          <p>
+            <strong>Completion Certificate:</strong>{" "}
+            {studentData.offerInfo.completionCertificate
+              ? "Received"
+              : "Not Received"}
+          </p>
+          <p>
+            <strong>Completion Certificate Date:</strong>{" "}
+            {studentData.offerInfo.completionCertificateDate
+              ? studentData.offerInfo.completionCertificateDate
+              : "N/A"}
+          </p>
+          <p>
+            <strong>Letter of Recommendation:</strong>{" "}
+            {studentData.offerInfo.letterOfRecommendation
+              ? "Received"
+              : "Not Received"}
+          </p>
+          <p>
+            <strong>Letter of Recommendation Date:</strong>{" "}
+            {studentData.offerInfo.letterOfRecommendationDate}
+          </p>
+          <p>
+            <strong>Goodies:</strong>{" "}
+            {studentData.offerInfo.goodies ? "Received" : "Not Received"}
+          </p>
+          <p>
+            <strong>Goodies Received Date:</strong>{" "}
+            {studentData.offerInfo.goodiesReceivedDate}
+          </p>
+          <p>
+            <strong>Payment:</strong>{" "}
+            {studentData.offerInfo.payment ? "Paid" : "Not Paid"}
+          </p>
+          <p>
+            <strong>Payment Amount:</strong> $
+            {studentData.offerInfo.paymentAmount}
+          </p>
+          <p>
+            <strong>Payment Date:</strong> {studentData.offerInfo.paymentDate}
+          </p>
+          <p>
+            <strong>Payment Description:</strong>{" "}
+            {studentData.offerInfo.paymentDescription}
+          </p>
+        </section>
+
+        {/* Account Information */}
+        <section className="mb-8 w-1/2">
+          <h2 className="text-xl font-semibold mb-4">Account Details</h2>
+          <p>
+            <strong>Email:</strong> {studentData.accountInfo.email}
+          </p>
+          <p>
+            <strong>Password:</strong> {studentData.accountInfo.password}
+          </p>
+          <p>
+            <strong>Basic Question 1 ID:</strong>{" "}
+            {studentData.accountInfo.basicQuestion1Id}
+          </p>
+          <p>
+            <strong>Basic Question 2 ID:</strong>{" "}
+            {studentData.accountInfo.basicQuestion2Id}
+          </p>
+          <p>
+            <strong>Basic Question 3 ID:</strong>{" "}
+            {studentData.accountInfo.basicQuestion3Id}
+          </p>
+          <p>
+            <strong>Advance Question 1 ID:</strong>{" "}
+            {studentData.accountInfo.advanceQuestion1Id}
+          </p>
+          <p>
+            <strong>Advance Question 2 ID:</strong>{" "}
+            {studentData.accountInfo.advanceQuestion2Id}
+          </p>
+          <p>
+            <strong>Basic Question 1 Check:</strong>{" "}
+            {studentData.accountInfo.basicQuestion1Check ? "Yes" : "No"}
+          </p>
+          <p>
+            <strong>Basic Question 2 Check:</strong>{" "}
+            {studentData.accountInfo.basicQuestion2Check ? "Yes" : "No"}
+          </p>
+          <p>
+            <strong>Basic Question 3 Check:</strong>{" "}
+            {studentData.accountInfo.basicQuestion3Check ? "Yes" : "No"}
+          </p>
+          <p>
+            <strong>Advance Question 1 Check:</strong>{" "}
+            {studentData.accountInfo.advanceQuestion1Check ? "Yes" : "No"}
+          </p>
+          <p>
+            <strong>Advance Question 2 Check:</strong>{" "}
+            {studentData.accountInfo.advanceQuestion2Check ? "Yes" : "No"}
+          </p>
+        </section>
+      </div>
+
       {/* Question Information */}
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Questions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* First Question */}
           <div className="border border-gray-200 p-4 rounded">
             <h3 className="font-semibold mb-2">First Question</h3>
@@ -315,56 +372,30 @@ const StudentDetailPage = () => {
         </div>
       </section>
 
-      {/* Account Information */}
-      {/* Account Information */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Account Details</h2>
-        <p>
-          <strong>Email:</strong> {studentData.accountInfo.email}
-        </p>
-        <p>
-          <strong>Password:</strong> {studentData.accountInfo.password}
-        </p>
-        <p>
-          <strong>Basic Question 1 ID:</strong>{" "}
-          {studentData.accountInfo.basicQuestion1Id}
-        </p>
-        <p>
-          <strong>Basic Question 2 ID:</strong>{" "}
-          {studentData.accountInfo.basicQuestion2Id}
-        </p>
-        <p>
-          <strong>Basic Question 3 ID:</strong>{" "}
-          {studentData.accountInfo.basicQuestion3Id}
-        </p>
-        <p>
-          <strong>Advance Question 1 ID:</strong>{" "}
-          {studentData.accountInfo.advanceQuestion1Id}
-        </p>
-        <p>
-          <strong>Advance Question 2 ID:</strong>{" "}
-          {studentData.accountInfo.advanceQuestion2Id}
-        </p>
-        <p>
-          <strong>Basic Question 1 Check:</strong>{" "}
-          {studentData.accountInfo.basicQuestion1Check ? "Yes" : "No"}
-        </p>
-        <p>
-          <strong>Basic Question 2 Check:</strong>{" "}
-          {studentData.accountInfo.basicQuestion2Check ? "Yes" : "No"}
-        </p>
-        <p>
-          <strong>Basic Question 3 Check:</strong>{" "}
-          {studentData.accountInfo.basicQuestion3Check ? "Yes" : "No"}
-        </p>
-        <p>
-          <strong>Advance Question 1 Check:</strong>{" "}
-          {studentData.accountInfo.advanceQuestion1Check ? "Yes" : "No"}
-        </p>
-        <p>
-          <strong>Advance Question 2 Check:</strong>{" "}
-          {studentData.accountInfo.advanceQuestion2Check ? "Yes" : "No"}
-        </p>
+        <h2 className="text-xl font-semibold mb-4">Questions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* First Question */}
+          <div className="border border-gray-200 p-4 rounded">
+            <h3 className="font-semibold mb-2">First Question</h3>
+            <p>{studentData.questionInfo.firstQuestion}</p>
+          </div>
+          {/* Second Question */}
+          <div className="border border-gray-200 p-4 rounded">
+            <h3 className="font-semibold mb-2">Second Question</h3>
+            <p>{studentData.questionInfo.secondQuestion}</p>
+          </div>
+          {/* Third Question */}
+          <div className="border border-gray-200 p-4 rounded">
+            <h3 className="font-semibold mb-2">Third Question</h3>
+            <p>{studentData.questionInfo.thirdQuestion}</p>
+          </div>
+          {/* Fourth Question */}
+          <div className="border border-gray-200 p-4 rounded">
+            <h3 className="font-semibold mb-2">Fourth Question</h3>
+            <p>{studentData.questionInfo.fourthQuestion}</p>
+          </div>
+        </div>
       </section>
     </div>
   );
