@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "./Navbar";
-import Footer from "./Foot";
+import Navbar from "../Navbar";
+import Footer from "../Foot";
 import { Link } from "@nextui-org/react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { MdOutlineAvTimer } from "react-icons/md";

@@ -8,8 +8,11 @@ import { FaDotCircle } from "react-icons/fa";
 import { CiCircleChevRight } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { Divider } from "@nextui-org/react";
-import { insertDetails } from "./Application";
+import {Spinner} from "@nextui-org/react";
 import { supabase } from "../../utils/Supabase";
+
+import { useDisclosure } from "@nextui-org/react";
+import { motion } from "framer-motion";
 
 //sector
 const ApplicationForm = () => {
@@ -18,6 +21,8 @@ const ApplicationForm = () => {
   const [resumeUrl, setResumeUrl] = useState();
   const [isChecked, setIsChecked] = useState(false);
   const [errors, setErrors] = useState({});
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const handleToggle = () => {
     const newValue = !isChecked;
     setIsChecked(newValue);
@@ -104,6 +109,7 @@ const ApplicationForm = () => {
 
   const handleSubmit = (e, sector) => {
     e.preventDefault();
+
     if (!/^\d{10}$/.test(formData.phoneNumber)) {
       setErrors({
         ...errors,
@@ -148,6 +154,7 @@ const ApplicationForm = () => {
 
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
+    setform("loading");
     try {
       const currentTimestamp = new Date().getTime();
       const resumeName = `${formData.firstName}_${formData.lastName}_${currentTimestamp}`;
@@ -207,6 +214,7 @@ const ApplicationForm = () => {
         linkedin: formData.linkedinAddress,
         sector: value,
         resume_link: resumeUrl,
+        password: formData.firstName + "@123",
       },
     ]);
 
@@ -244,6 +252,7 @@ const ApplicationForm = () => {
     }
 
     console.log("Inserted educational details:", insertedEducationDetails);
+    setform("submit");
   };
 
   return (
@@ -959,6 +968,54 @@ const ApplicationForm = () => {
                 </form>
               </div>
             </>
+          </div>
+          <Footer />
+        </>
+      )}
+
+      {form === "loading" && (
+        <>
+          <Navbar />
+          <div className="flex flex-col items-center justify-center h-screen">
+            <Spinner label="Loading..." color="primary" />
+          </div>
+          <Footer />
+        </>
+      )}
+
+      {form === "submit" && (
+        <>
+          <Navbar />
+          <div className="flex flex-col items-center justify-center h-screen">
+            <div className="p-4">
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                className="w-16 h-16 text-yellow-400 mb-4 rounded-lg"
+                animate={{
+                  rotate: 360,
+                  scale: [0.8, 1.2, 1], // Scale animation with a bounce effect
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut", // Ease in-out effect
+                }}
+              >
+                <motion.polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  fill="currentColor"
+                />
+              </motion.svg>
+            </div>
+            <h1 className="text-3xl font-bold mb-4">Application Submitted</h1>
+            <p className="text-lg text-gray-700 mb-8 w-[80%] text-center">
+              Thank you for submitting your application for the internship
+              position. We appreciate your interest in joining our team. Our
+              hiring team will review your application carefully. If you are
+              selected for the next stage of the application process, you will
+              be contacted via email within the next few weeks.
+            </p>
           </div>
           <Footer />
         </>

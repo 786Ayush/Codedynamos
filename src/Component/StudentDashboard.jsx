@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Divider, Image } from "@nextui-org/react";
 import { FaBars } from "react-icons/fa";
 import { IoMdLogOut } from "react-icons/io";
+import Cookies from "js-cookie";
 
 const Dashboard = () => {
   const [taskColors, setTaskColors] = useState({
@@ -31,6 +32,14 @@ const Dashboard = () => {
   const toggleSidebarOptions = () => {
     setShowSidebarOptions(!showSidebarOptions);
   };
+  const handleLogout = () => {
+    // Remove encrypted user data from cookies
+    Cookies.remove("encryptedUser");
+    // Perform any additional logout actions
+    // For example: redirect to the login page
+    window.location.href = "/login";
+  };
+
 
   return (
     <div className="flex flex-col ">
@@ -41,7 +50,7 @@ const Dashboard = () => {
         <div className="hidden md:block text-xl font-semibold pl-3">
           Dashboard
         </div>
-        <IoMdLogOut className="w-10 h-10 pr-3" />
+        <IoMdLogOut className="w-10 h-10 pr-3" onClick={handleLogout} />
       </header>
       <div className="flex w-full md:w-screen">
         <nav

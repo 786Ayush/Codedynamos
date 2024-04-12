@@ -1,4 +1,4 @@
-const {nextui} = require("@nextui-org/react");
+const { nextui } = require("@nextui-org/react");
 
 /** @type {import('tailwindcss').Config} */
 
@@ -9,7 +9,7 @@ const customColors = {
   heading: "#183827",
   para: "#747474",
   seperate: "#E3E3E3",
-  text01: "#838181"
+  text01: "#838181",
   // Add more custom colors as needed
 };
 module.exports = {
@@ -24,6 +24,7 @@ module.exports = {
       ...customColors,
     },
   },
+  
   darkMode: "class",
   plugins: [nextui()],
 };
