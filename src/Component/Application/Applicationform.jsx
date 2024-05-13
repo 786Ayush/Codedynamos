@@ -8,10 +8,9 @@ import { FaDotCircle } from "react-icons/fa";
 import { CiCircleChevRight } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { Divider } from "@nextui-org/react";
-import {Spinner} from "@nextui-org/react";
+import { Spinner } from "@nextui-org/react";
 import { supabase } from "../../utils/Supabase";
 
-import { useDisclosure } from "@nextui-org/react";
 import { motion } from "framer-motion";
 
 //sector
@@ -21,7 +20,6 @@ const ApplicationForm = () => {
   const [resumeUrl, setResumeUrl] = useState();
   const [isChecked, setIsChecked] = useState(false);
   const [errors, setErrors] = useState({});
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleToggle = () => {
     const newValue = !isChecked;
@@ -313,7 +311,7 @@ const ApplicationForm = () => {
                     name="country"
                     value={formData.country}
                     onChange={handleChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   >
                     {countries.map((country, index) => (
@@ -333,7 +331,7 @@ const ApplicationForm = () => {
                     name="howYouHeard"
                     value={formData.howYouHeard}
                     onChange={handleChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   >
                     {howYouHeardOptions.map((option, index) => (
@@ -364,7 +362,7 @@ const ApplicationForm = () => {
                         e.preventDefault();
                       }
                     }}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     placeholder="John"
                     required
                   />
@@ -387,7 +385,7 @@ const ApplicationForm = () => {
                         e.preventDefault();
                       }
                     }}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                   />
                 </div>
 
@@ -410,8 +408,8 @@ const ApplicationForm = () => {
                         e.preventDefault();
                       }
                     }}
-                    placeholder="Mehta"
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    placeholder=""
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -429,7 +427,7 @@ const ApplicationForm = () => {
                       value={formData.phoneNumber}
                       onChange={handleChange}
                       placeholder="0000-0000-00"
-                      className="m-4 p-2 border rounded bg-gray-100"
+                      className="w-full p-2 border rounded bg-gray-100"
                       pattern="[0-9-]{1,}"
                       required
                       onKeyPress={(e) => {
@@ -456,7 +454,7 @@ const ApplicationForm = () => {
                     placeholder="0000-0000-00"
                     value={formData.alternateNumber}
                     onChange={handleChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     pattern="[0-9-]{1,}"
                     onKeyPress={(e) => {
                       const isValidInput = /[0-9-]/.test(e.key);
@@ -478,7 +476,7 @@ const ApplicationForm = () => {
                       placeholder="xyz@gmail.com"
                       value={formData.emailAddress}
                       onChange={handleChange}
-                      className="m-4 p-2 border rounded bg-gray-100"
+                      className="w-full p-2 border rounded bg-gray-100"
                       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                       title="Please enter a valid email address"
                       required
@@ -501,7 +499,7 @@ const ApplicationForm = () => {
                       name="githubLink"
                       value={formData.githubLink}
                       onChange={handleChange}
-                      className="m-4 p-2 border rounded bg-gray-100"
+                      className="w-full p-2 border rounded bg-gray-100"
                       pattern="https?://.+"
                       title="Please enter a valid URL starting with http:// or https://"
                       required
@@ -524,7 +522,7 @@ const ApplicationForm = () => {
                       name="linkedinAddress"
                       value={formData.linkedinAddress}
                       onChange={handleChange}
-                      className="m-4 p-2 border rounded bg-gray-100"
+                      className=" p-2 border rounded bg-gray-100 w-full"
                       pattern="https?://.+"
                       title="Please enter a valid URL starting with http:// or https://"
                       required
@@ -601,7 +599,7 @@ const ApplicationForm = () => {
                     name="tenth_board"
                     value={educationalDetails["tenth_board"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className=" w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -616,7 +614,7 @@ const ApplicationForm = () => {
                     name="tenth_school"
                     value={educationalDetails["tenth_school"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -631,7 +629,7 @@ const ApplicationForm = () => {
                     name="tenth_percentage"
                     value={educationalDetails["tenth_percentage"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -646,7 +644,7 @@ const ApplicationForm = () => {
                     name="twelfth_board"
                     value={educationalDetails["twelfth_board"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -661,7 +659,7 @@ const ApplicationForm = () => {
                     name="twelfth_school"
                     value={educationalDetails["twelfth_school"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -676,7 +674,7 @@ const ApplicationForm = () => {
                     name="twelfth_percentage"
                     value={educationalDetails["twelfth_percentage"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -692,7 +690,7 @@ const ApplicationForm = () => {
                     name="bachelor_university"
                     value={educationalDetails["bachelor_university"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -707,7 +705,7 @@ const ApplicationForm = () => {
                     name="bachelor_college"
                     value={educationalDetails["bachelor_college"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -723,7 +721,7 @@ const ApplicationForm = () => {
                     name="bachelor_percentage"
                     value={educationalDetails["bachelor_percentage"]}
                     onChange={handleEducationalChange}
-                    className="m-4 p-2 border rounded bg-gray-100"
+                    className="w-full p-2 border rounded bg-gray-100"
                     required
                   />
                 </div>
@@ -1008,7 +1006,9 @@ const ApplicationForm = () => {
                 />
               </motion.svg>
             </div>
-            <h1 className="text-3xl font-bold mb-4">Application Submitted</h1>
+            <h1 className="text-3xl font-bold mb-4 text-center">
+              Application Submitted
+            </h1>
             <p className="text-lg text-gray-700 mb-8 w-[80%] text-center">
               Thank you for submitting your application for the internship
               position. We appreciate your interest in joining our team. Our

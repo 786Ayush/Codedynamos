@@ -15,6 +15,7 @@ const customColors = {
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "npm i @nextui-org/react framer-motion",
   ],
   extend: {

@@ -7,12 +7,15 @@ import Login from "./Component/Login";
 import Roadmap from "./Component/Roadmap";
 import Contact from "./Component/Contact";
 import OfferLetter from "./Component/OfferLetter";
-import Dashboard from "./Component/StudentDashboard";
+// import Dashboard from "./Component/StudentDashboard";
 import ApplicationForm from "./Component/Application/Applicationform";
 import AdminDashboard from "./Component/AdminDashboard/AdminDashboard";
 import Internships from "./Component/Internship/Internships";
 import Complete from "./Component/Application/Complete";
 import Protected from "./Component/Protected";
+import AdminLogin from "./Component/AdminLogin";
+import Dashboard from "./Component/StudentDashboard/StudentDashboard";
+import Submissionform from "./Component/StudentDashboard/Submissionform";
 
 function App() {
   return (
@@ -22,7 +25,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/internship" element={<Internships />} />
+
         <Route path="/roadmap" element={<Roadmap />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/applicationform" element={<ApplicationForm />} />
@@ -32,6 +37,14 @@ function App() {
           element={
             <Protected>
               <Dashboard />
+            </Protected>
+          }
+        />
+        <Route
+          path="/dashboard/submissionform"
+          element={
+            <Protected>
+              <Submissionform />
             </Protected>
           }
         />

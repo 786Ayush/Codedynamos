@@ -8,6 +8,7 @@ import DetailedQuestion from "./DetailedQuestion";
 import StudentScreen from "./Student";
 import DetailedStudent from "./DetailedStudent";
 import StudentDetailPage from "./DetailedStudent";
+import Cookies from "js-cookie";
 
 const AdminDashboard = () => {
   const [selectedOption, setSelectedOption] = useState(0);
@@ -48,9 +49,11 @@ const AdminDashboard = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const handleLogout = () => {
-    // Add logout functionality here
-    window.location.href = "/login"; // Redirect to login page after logout
+  const handleLogout = () => {// Remove encrypted user data from cookies
+    Cookies.remove("encryptedAdminUser");
+    // Perform any additional logout actions
+    // For example: redirect to the login page
+    window.location.href = "/adminlogin"; // Redirect to login page after logout
   };
 
   return (

@@ -6,6 +6,7 @@ const DetailedQuestion = () => {
   const [question, setQuestion] = useState("");
   const [questionsList, setQuestionsList] = useState([]);
   const [index, setIndex] = useState(null); // Initialize index state
+  const [level, setLevel] = useState("Basic"); // Initialize level state
 
   useEffect(() => {
     // Parse index from query parameter
@@ -13,6 +14,7 @@ const DetailedQuestion = () => {
     const indexParam = params.get("index");
     setIndex(indexParam);
   }, []);
+
   const InternshipDomains = [
     { index: 1, value: "Artificial Intelligence Intern" },
     { index: 2, value: "Data Science Intern" },
@@ -26,7 +28,10 @@ const DetailedQuestion = () => {
 
   const handleAddQuestion = () => {
     if (question.trim() !== "") {
-      setQuestionsList([...questionsList, { text: question, checked: false }]);
+      setQuestionsList([
+        ...questionsList,
+        { text: question, checked: false, level: level }, // Include level in the question object
+      ]);
       setQuestion("");
     }
   };
@@ -65,7 +70,19 @@ const DetailedQuestion = () => {
             className="border w-full p-3"
           />
         </div>
-        <div className="mb-4 flex justify-end">
+        <div className="mb-4 flex justify-between items-center">
+          <div>
+            <label htmlFor="level">Level:</label>
+            <select
+              id="level"
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
+              className="border p-2 ml-2"
+            >
+              <option value="Basic">Basic</option>
+              <option value="Advanced">Advance</option>
+            </select>
+          </div>
           <button
             className="bg-primary text-white p-3 rounded"
             onClick={handleAddQuestion}
@@ -78,8 +95,11 @@ const DetailedQuestion = () => {
         <div>
           {questionsList.map((q, index) => (
             <Card key={index} shadow className="mb-2">
-              <div className="flex items-center justify-between">
-                <p className="text-lg w-[80%]">{q.text}</p>
+              <div className="flex items-center justify-between p-2">
+                <div className="flex flex-col w-[80%]">
+                  <p className="text-lg">{q.text}</p>
+                  <p className="text-sm text-gray-500">Level: {q.level}</p> {/* Display question level */}
+                </div>
                 <div className="chk">
                   <input
                     type="checkbox"
