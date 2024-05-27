@@ -5,8 +5,13 @@ import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
 // import Razorpay from "razorpay"
 import { supabase } from "../../utils/Supabase";
+import { useNavigate } from "react-router-dom";
+// Import the useRouter hook from Next.js
 
 export default function Home() {
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+
   const [userData, setUserData] = useState(null);
   useEffect(() => {
     const encryptedUser = Cookies.get("encryptedUser");
@@ -29,9 +34,12 @@ export default function Home() {
   }, []);
 
   const [formData, setFormData] = useState({
+    firstQuestionLiveLink: "",
     firstQuestionGithubLink: "",
     secondQuestionGithubLink: "",
+    secondQuestionLiveLink: "",
     thirdQuestionGithubLink: "",
+    thirdQuestionLiveLink: "",
   });
 
   const handleChange = (e) => {
@@ -41,37 +49,82 @@ export default function Home() {
       [name]: value,
     });
   };
-  // const razorpay = new Razorpay({
-  //   key: "rzp_test_5klJQUdrgNrAw0",
-  //   // key_secret: "dn9IpB7PGIfawCeLDkunoSDA",
-  // });
-  const handlePaymentRequest = async () => {
-  //   const options = {
-  //     amount: 9900, // Amount in paise (99*100)
-  //     currency: "INR",
-  //     receipt: "order_receipt_" + Math.floor(Math.random() * 1000), // Replace with your unique receipt ID logic
-  //     payment_capture: 1,
-  //   };
-  
-  //   try {
-  //     const response = await razorpay.orders.create(options);
-  //     console.log("Payment request created:", response);
-  //     // Redirect the user to the Razorpay checkout page
-  //     window.location = response.receipt;
-  //   } catch (error) {
-  //     console.error("Error creating payment request:", error);
-  //     // Handle the error here, e.g., display an error message to the user
-  //   }
-  };
-  
 
+  const handlePaymentRequest = async () => {
+    var options = {
+      key: "rzp_test_JcgHgVhruPREWK",
+      key_secret: "pCOq1NJwb8u8Rcj92LrtSzQv",
+      amount: "9900",
+      currency: "INR",
+      name: "CodeDynamos",
+      description: "hey there",
+      handler: async (resp) => {
+        // alert(resp.razorpay_payment_id);
+        
+        if (resp.razorpay_payment_id) {
+          const { data, error } = await supabase
+            .from("responseoftaskdetails")
+            .insert([
+              {
+                student_id: userData.student_id, // Replace with the appropriate student ID
+                firstquestionlivelink: formData.firstQuestionLiveLink,
+                firstquestiongithublink: formData.firstQuestionGithubLink,
+                secondquestionlivelink: formData.secondQuestionLiveLink,
+                secondquestiongithublink: formData.secondQuestionGithubLink,
+                thirdquestionlivelink: formData.thirdQuestionLiveLink,
+                thirdquestiongithublink: formData.thirdQuestionGithubLink,
+                payment_boolean: true,
+                payment_link: resp.razorpay_payment_id, // Replace with the actual payment link
+              },
+            ]);
+          // console.log(data, error);
+        }
+        navigate("/dashboard");
+      },
+      prefill: {
+        name: "Ayush",
+        email: "guptaayush617@gmail.com",
+        contact: "9756573003",
+      },
+      notes: {
+        address: "",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+      method: {
+        upi: true,
+      },
+    };
+    var pay = new window.Razorpay(options);
+    pay.open();
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    const urlPattern =
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+
+    if (!formData.firstQuestionGithubLink) {
+      errors.firstQuestionGithubLink = "url for Question 1 is required";
+    } else if (!urlPattern.test(formData.firstQuestionGithubLink)) {
+      errors.firstQuestionGithubLink = "Invalid link format";
+    }
+    setErrors(errors);
+    console.log(errors);
+
+    return true;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = await validateForm();
 
-    // Handle form submission logic here
-    console.log(formData);
+    if (!validationErrors) {
+      // Submit form data
+      await handlePaymentRequest();
+      console.log(formData);
+    }
     // Call handlePaymentRequest
-    await handlePaymentRequest();
   };
 
   return (
@@ -93,6 +146,11 @@ export default function Home() {
                   required
                   color="default"
                 />
+                {errors && (
+                  <p className="text-start text-red-400">
+                    {errors.firstQuestionGithubLink}
+                  </p>
+                )}
               </div>
               <div className="mb-4">
                 <Input
@@ -103,6 +161,11 @@ export default function Home() {
                   required
                   color="default"
                 />
+                {errors && (
+                  <p className="text-start text-red-400">
+                    {errors.firstQuestionGithubLink}
+                  </p>
+                )}
               </div>
               <div className="mb-4">
                 <Input
@@ -154,10 +217,17 @@ export default function Home() {
                   label="GitHub Link for Question 1"
                   value={formData.firstQuestionGithubLink}
                   onChange={handleChange}
-                  required
                   color="default"
+                  helperText={errors.firstQuestionGithubLink}
+                  required
                 />
+                {errors && (
+                  <p className="text-start text-red-400">
+                    {errors.firstQuestionGithubLink}
+                  </p>
+                )}
               </div>
+
               <div className="mb-4">
                 <Input
                   name="secondQuestionGithubLink"

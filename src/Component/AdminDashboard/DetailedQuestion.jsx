@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
 import { Input, Button, Card } from "@nextui-org/react";
-import { useParams } from "react-router-dom";
+import { supabase } from "../../utils/Supabase";
 
 const DetailedQuestion = () => {
   const [question, setQuestion] = useState("");
   const [questionsList, setQuestionsList] = useState([]);
   const [index, setIndex] = useState(null); // Initialize index state
   const [level, setLevel] = useState("Basic"); // Initialize level state
-
-  useEffect(() => {
-    // Parse index from query parameter
-    const params = new URLSearchParams(window.location.search);
-    const indexParam = params.get("index");
-    setIndex(indexParam);
-  }, []);
 
   const InternshipDomains = [
     { index: 1, value: "Artificial Intelligence Intern" },
@@ -26,19 +19,57 @@ const DetailedQuestion = () => {
     { index: 8, value: "Content Writer Intern" },
   ];
 
-  const handleAddQuestion = () => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const indexParam = params.get("index");
+    if (indexParam) {
+      setIndex(indexParam);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (index) {
+        const { data, error } = await supabase
+          .from("questions")
+          .select("*")
+          .eq("Sector", InternshipDomains[parseInt(index) - 1]?.value);
+
+        if (error) {
+          console.error("Error fetching questions:", error);
+        } else {
+          setQuestionsList(data);
+        }
+      }
+    };
+    fetchData();
+  }, [index]);
+
+  const handleAddQuestion = async () => {
     if (question.trim() !== "") {
-      setQuestionsList([
-        ...questionsList,
-        { text: question, checked: false, level: level }, // Include level in the question object
-      ]);
+      const questionData = {
+        QuestionText: question,
+        Sector: InternshipDomains[parseInt(index) - 1]?.value,
+        Current_question: false,
+        level: level,
+      };
+      const { data, error } = await supabase
+        .from("questions")
+        .insert([questionData]);
+
+      if (error) {
+        console.error("Error adding question:", error);
+        return { success: false, error };
+      }
+
+      setQuestionsList((prevQuestions) => [...prevQuestions, questionData]);
       setQuestion("");
     }
   };
 
-  const handleCheckboxChange = (index) => {
+  const handleCheckboxChange = (questionIndex) => {
     const updatedQuestions = [...questionsList];
-    updatedQuestions[index].checked = !updatedQuestions[index].checked;
+    updatedQuestions[questionIndex].checked = !updatedQuestions[questionIndex].checked;
 
     // Count the number of checked questions
     const checkedCount = updatedQuestions.filter((q) => q.checked).length;
@@ -46,12 +77,14 @@ const DetailedQuestion = () => {
     // Allow only up to 5 questions to be checked
     if (checkedCount <= 5) {
       setQuestionsList(updatedQuestions);
+    } else {
+      // If more than 5, uncheck the last checked
+      updatedQuestions[questionIndex].checked = false;
     }
   };
 
-  const handleDeleteQuestion = (index) => {
-    const updatedQuestions = [...questionsList];
-    updatedQuestions.splice(index, 1);
+  const handleDeleteQuestion = (questionIndex) => {
+    const updatedQuestions = questionsList.filter((_, i) => i !== questionIndex);
     setQuestionsList(updatedQuestions);
   };
 
@@ -80,7 +113,7 @@ const DetailedQuestion = () => {
               className="border p-2 ml-2"
             >
               <option value="Basic">Basic</option>
-              <option value="Advanced">Advance</option>
+              <option value="Advanced">Advanced</option>
             </select>
           </div>
           <button
@@ -93,24 +126,24 @@ const DetailedQuestion = () => {
       </div>
       <div className="p-4 bg-white rounded shadow-md">
         <div>
-          {questionsList.map((q, index) => (
-            <Card key={index} shadow className="mb-2">
+          {questionsList.map((q, i) => (
+            <Card key={i} shadow className="mb-2">
               <div className="flex items-center justify-between p-2">
                 <div className="flex flex-col w-[80%]">
-                  <p className="text-lg">{q.text}</p>
-                  <p className="text-sm text-gray-500">Level: {q.level}</p> {/* Display question level */}
+                  <p className="text-lg">{q.QuestionText}</p>
+                  <p className="text-sm text-gray-500">Level: {q.level}</p>
                 </div>
                 <div className="chk">
                   <input
                     type="checkbox"
-                    checked={q.checked}
-                    onChange={() => handleCheckboxChange(index)}
+                    checked={q.Current_question || false}
+                    onChange={() => handleCheckboxChange(i)}
                   />
                 </div>
                 <div className="btn">
                   <button
                     className="text-red-500"
-                    onClick={() => handleDeleteQuestion(index)}
+                    onClick={() => handleDeleteQuestion(i)}
                   >
                     Delete
                   </button>

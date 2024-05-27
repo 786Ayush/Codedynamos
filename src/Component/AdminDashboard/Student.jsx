@@ -1,38 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { supabase } from "../../utils/Supabase";
 
 const StudentScreen = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [Student_data, setStudentData] = useState([]);
 
-  // Example student data
-  const students = [
-    { id: "CD01", name: "Student 1", status: "Active" },
-    { id: "CD02", name: "Student 2", status: "Inactive" },
-    { id: "CD03", name: "Student 3", status: "Active" },
-    { id: "CD04", name: "Student 4", status: "Inactive" },
-    { id: "CD05", name: "Student 5", status: "Active" },
-    { id: "CD06", name: "Student 6", status: "Inactive" },
-    { id: "CD07", name: "Student 7", status: "Active" },
-    { id: "CD08", name: "Student 8", status: "Inactive" },
-    { id: "CD09", name: "Student 9", status: "Active" },
-    { id: "CD10", name: "Student 10", status: "Inactive" },
-    { id: "CD11", name: "Student 11", status: "Active" },
-    { id: "CD12", name: "Student 12", status: "Inactive" },
-    { id: "CD13", name: "Student 13", status: "Active" },
-    { id: "CD14", name: "Student 14", status: "Inactive" },
-    { id: "CD15", name: "Student 15", status: "Active" },
-    { id: "CD16", name: "Student 16", status: "Inactive" },
-    { id: "CD17", name: "Student 17", status: "Active" },
-    { id: "CD18", name: "Student 18", status: "Inactive" },
-    { id: "CD19", name: "Student 19", status: "Active" },
-    { id: "CD20", name: "Student 20", status: "Inactive" },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: basicDetails, error: basicDetailsError } = await supabase
+        .from("basic_details")
+        .select("*");
+      if (basicDetailsError) {
+        console.error("Error fetching student data:", basicDetailsError);
+      } else {
+        setStudentData(basicDetails);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Function to check if the date is within the last month
+  const isDateWithinLastMonth = (dateString) => {
+    const createdDate = new Date(dateString);
+    const currentDate = new Date();
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(currentDate.getMonth() - 1);
+    return createdDate >= oneMonthAgo;
+  };
 
   // Filter students based on search term
-  const filteredStudents = students.filter((student) => {
+  const filteredStudents = Student_data.filter((student) => {
     return (
-      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.id.toString().includes(searchTerm.toLowerCase())
+      student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      student.student_id.toString().includes(searchTerm.toLowerCase())
     );
   });
 
@@ -77,29 +78,31 @@ const StudentScreen = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredStudents.map((student) => (
-                    <tr key={student.id}>
+                    <tr key={student.student_id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">
-                          {student.id}
+                          {student.student_id}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Link
-                          to={`/admindashboard/detailedquestion/${student.id}`}
+                          to={`/admindashboard/detailedquestion/${student.student_id}`}
                           className="text-sm text-blue-500 hover:underline"
                         >
-                          {student.name}
+                          {student.first_name}
                         </Link>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            student.status === "Active"
+                            isDateWithinLastMonth(student.created_date)
                               ? "bg-green-100 text-green-800"
                               : "bg-red-100 text-red-800"
                           }`}
                         >
-                          {student.status}
+                          {isDateWithinLastMonth(student.created_date)
+                            ? "Active"
+                            : "Inactive"}
                         </span>
                       </td>
                     </tr>

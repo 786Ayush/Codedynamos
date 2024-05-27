@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
+    "@stripe/react-stripe-js": "^2.7.1",
+    "@stripe/stripe-js": "^3.4.0",
     "@supabase/supabase-js": "^2.42.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -16,7 +18,6 @@
     "html2pdf.js": "^0.10.1",
     "js-cookie": "^3.0.5",
     "jspdf": "^2.5.1",
-    "razorpay": "^2.9.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
