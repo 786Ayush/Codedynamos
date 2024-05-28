@@ -7,18 +7,19 @@ const StudentDetailPage = () => {
   const [studentData, setStudentData] = useState(null);
   const [studentId, setStudentId] = useState();
 
-  console.log(studentId);
-
-  // setStudentId(para["*"]);
   useEffect(() => {
+    setStudentId(para["*"]);
+  }, [para]);
+
+  useEffect(() => {
+    if (!studentId) return; // Ensure studentId is set before fetching data
+
     const fetchData = async () => {
       try {
-        console.log(studentId);
         const { data: basicDetails, error: basicDetailsError } = await supabase
           .from("basic_details")
           .select("*")
           .eq("student_id", studentId);
-        console.log(basicDetails);
         if (basicDetailsError) {
           throw basicDetailsError;
         }
@@ -28,8 +29,6 @@ const StudentDetailPage = () => {
             .from("educational_details")
             .select("*")
             .eq("student_id", studentId);
-
-        console.log(educationalDetails);
         if (educationalDetailsError) {
           throw educationalDetailsError;
         }
@@ -38,9 +37,6 @@ const StudentDetailPage = () => {
           .from("responseoftaskdetails")
           .select("*")
           .eq("student_id", studentId);
-
-        console.log(offerDetails);
-
         if (offerDetailsError) {
           throw offerDetailsError;
         }
@@ -50,9 +46,6 @@ const StudentDetailPage = () => {
             .from("studentquestionids")
             .select("*")
             .eq("studentid", studentId);
-
-        console.log(questionDetails);
-
         if (questionDetailsError) {
           throw questionDetailsError;
         }
@@ -62,22 +55,19 @@ const StudentDetailPage = () => {
             .from("confirmation")
             .select("*")
             .eq("student_id", studentId);
-
-        console.log(accountDetails);
         if (accountDetailsError) {
           throw accountDetailsError;
         }
 
         const combinedData = {
-          basicInfo: basicDetails[0],
-          educationInfo: educationalDetails[0],
-          responseoftaskdetails: offerDetails[0],
-          studentquestionids: questionDetails[0],
-          confirmation: accountDetails[0],
+          basicInfo: basicDetails?.[0] || null,
+          educationInfo: educationalDetails?.[0] || null,
+          responseoftaskdetails: offerDetails?.[0] || null,
+          studentquestionids: questionDetails?.[0] || null,
+          confirmation: accountDetails?.[0] || null,
         };
 
         setStudentData(combinedData);
-        console.log(combinedData);
       } catch (error) {
         console.error("Error fetching student data:", error);
       }
@@ -85,15 +75,13 @@ const StudentDetailPage = () => {
 
     fetchData();
   }, [studentId]);
-
-  useEffect(() => {
-    setStudentId(para["*"]);
-  }, [para]);
+console.log(studentData)
   if (!studentData) {
     return <div>Loading...</div>;
   }
-
   return (
+  // <div className="">hello</div>
+  
     <div className="h-[80vh] overflow-scroll bg-white m-4 p-3">
       <h1 className="text-2xl font-bold mb-4">Student Details</h1>
 
@@ -171,64 +159,60 @@ const StudentDetailPage = () => {
           <h2 className="text-xl font-semibold mb-4">Offer Information</h2>
           <p>
             <strong>Offer Letter:</strong>{" "}
-            {studentData.confirmation.offer_letter ? "Received" : "Not Received"}
+            {studentData.confirmation.OfferLetter ? "Received" : "Not Received"}
           </p>
           <p>
             <strong>Offer Letter Date:</strong>{" "}
-            {studentData.confirmation.offer_letter_date}
+            {studentData.confirmation.OfferLetterDate}
           </p>
           <p>
             <strong>Response of Task:</strong>{" "}
-            {studentData.responseoftaskdetails.response_of_task
+            {studentData.confirmation.ResponseOfTask
               ? "Received"
               : "Not Received"}
           </p>
           <p>
             <strong>Response of Task Date:</strong>{" "}
-            {studentData.responseoftaskdetails.response_of_task_date}
+            {studentData.confirmation.ResponseOfTaskDate}
           </p>
           <p>
             <strong>Completion Certificate:</strong>{" "}
-            {studentData.responseoftaskdetails.completion_certificate
+            {studentData.confirmation.CompletionCertificate
               ? "Received"
               : "Not Received"}
           </p>
           <p>
             <strong>Completion Certificate Date:</strong>{" "}
-            {studentData.responseoftaskdetails.completion_certificate_date || "N/A"}
+            {studentData.confirmation.CompletionCertificateDate || "N/A"}
           </p>
           <p>
             <strong>Letter of Recommendation:</strong>{" "}
-            {studentData.responseoftaskdetails.letter_of_recommendation
+            {studentData.confirmation.letterOfRecommendation
               ? "Received"
               : "Not Received"}
           </p>
           <p>
             <strong>Letter of Recommendation Date:</strong>{" "}
-            {studentData.responseoftaskdetails.letter_of_recommendation_date}
+            {studentData.confirmation.letterOfRecommendationDate}
           </p>
           <p>
             <strong>Goodies:</strong>{" "}
-            {studentData.responseoftaskdetails.goodies ? "Received" : "Not Received"}
+            {studentData.confirmation.Goodies ? "Received" : "Not Received"}
           </p>
           <p>
             <strong>Goodies Received Date:</strong>{" "}
-            {studentData.responseoftaskdetails.goodies_received_date}
+            {studentData.confirmation.GoodiesReceivedDate}
           </p>
           <p>
             <strong>Payment:</strong>{" "}
-            {studentData.responseoftaskdetails.payment ? "Paid" : "Not Paid"}
-          </p>
-          <p>
-            <strong>Payment Amount:</strong> $
-            {studentData.responseoftaskdetails.payment_amount}
+            {studentData.responseoftaskdetails.payment_boolean ? "Paid" : "Not Paid"}
           </p>
           <p>
             <strong>Payment Date:</strong> {studentData.responseoftaskdetails.payment_date}
           </p>
+          
           <p>
-            <strong>Payment Description:</strong>{" "}
-            {studentData.responseoftaskdetails.payment_description}
+            <strong>Payment Link:</strong> {studentData.responseoftaskdetails.payment_link}
           </p>
         </section>
 
@@ -236,50 +220,50 @@ const StudentDetailPage = () => {
         <section className="mb-8 w-1/2">
           <h2 className="text-xl font-semibold mb-4">Account Details</h2>
           <p>
-            <strong>Email:</strong> {studentData.confirmation.email}
+            <strong>Email:</strong> {studentData.basicInfo.email}
           </p>
           <p>
-            <strong>Password:</strong> {studentData.confirmation.password}
+            <strong>Password:</strong> {studentData.basicInfo.password}
           </p>
           <p>
             <strong>Basic Question 1 ID:</strong>{" "}
-            {studentData.confirmation.basic_question_1_id}
+            {studentData.studentquestionids.basic_question1_id}
           </p>
           <p>
             <strong>Basic Question 2 ID:</strong>{" "}
-            {studentData.confirmation.basic_question_2_id}
+            {studentData.studentquestionids.basic_question2_id}
           </p>
           <p>
             <strong>Basic Question 3 ID:</strong>{" "}
-            {studentData.confirmation.basic_question_3_id}
+            {studentData.studentquestionids.basic_question3_id}
           </p>
           <p>
             <strong>Advance Question 1 ID:</strong>{" "}
-            {studentData.confirmation.advance_question_1_id}
+            {studentData.studentquestionids.advance_question1_id}
           </p>
           <p>
             <strong>Advance Question 2 ID:</strong>{" "}
-            {studentData.confirmation.advance_question_2_id}
+            {studentData.studentquestionids.advance_question2_id}
           </p>
           <p>
             <strong>Basic Question 1 Check:</strong>{" "}
-            {studentData.confirmation.basic_question_1_check ? "Yes" : "No"}
+            {studentData.studentquestionids.basic_question1_check ? "Yes" : "No"}
           </p>
           <p>
             <strong>Basic Question 2 Check:</strong>{" "}
-            {studentData.confirmation.basic_question_2_check ? "Yes" : "No"}
+            {studentData.studentquestionids.basic_question2_check ? "Yes" : "No"}
           </p>
           <p>
             <strong>Basic Question 3 Check:</strong>{" "}
-            {studentData.confirmation.basic_question_3_check ? "Yes" : "No"}
+            {studentData.studentquestionids.basic_question3_check ? "Yes" : "No"}
           </p>
           <p>
             <strong>Advance Question 1 Check:</strong>{" "}
-            {studentData.confirmation.advance_question_1_check ? "Yes" : "No"}
+            {studentData.studentquestionids.advance_question1_check ? "Yes" : "No"}
           </p>
           <p>
             <strong>Advance Question 2 Check:</strong>{" "}
-            {studentData.confirmation.advance_question_2_check ? "Yes" : "No"}
+            {studentData.studentquestionids.advance_question2_check ? "Yes" : "No"}
           </p>
         </section>
       </div>
@@ -291,146 +275,118 @@ const StudentDetailPage = () => {
           {/* First Question */}
           <div className="border border-gray-200 p-4 rounded">
             <h3 className="font-semibold mb-2">First Question</h3>
-            <p className="text-sm mb-2">
-              <strong>Question:</strong>{" "}
-              {studentData.studentquestionids.basic_question1_id}
-            </p>
+            
             <p className="text-sm mb-2">
               <strong>Live Link:</strong>{" "}
               <a
-                href={studentData.studentquestionids.first_question_live_link}
+                href={studentData.responseoftaskdetails.firstquestionlivelink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.studentquestionids.first_question_live_link}
+                {studentData.responseoftaskdetails.firstquestionlivelink}
               </a>
             </p>
             <p className="text-sm mb-2">
               <strong>GitHub Link:</strong>{" "}
               <a
-                href={studentData.studentquestionids.first_question_github_link}
+                href={studentData.responseoftaskdetails.firstquestiongithublink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.studentquestionids.first_question_github_link}
+                {studentData.responseoftaskdetails.firstquestiongithublink}
               </a>
             </p>
-            <p className="text-sm mb-2">
-              <strong>Comment:</strong>{" "}
-              {studentData.studentquestionids.first_question_comment}
-            </p>
+            
           </div>
 
           {/* Second Question */}
           <div className="border border-gray-200 p-4 rounded">
             <h3 className="font-semibold mb-2">Second Question</h3>
             <p className="text-sm mb-2">
-              <strong>Question:</strong>{" "}
-              {studentData.studentquestionids.basic_question2_id}
-            </p><p className="text-sm mb-2">
               <strong>Live Link:</strong>{" "}
               <a
-                href={studentData.studentquestionids.second_question_live_link}
+                href={studentData.responseoftaskdetails.secondquestionlivelink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.studentquestionids.second_question_live_link}
+                {studentData.responseoftaskdetails.secondquestionlivelink}
               </a>
             </p>
             <p className="text-sm mb-2">
               <strong>GitHub Link:</strong>{" "}
               <a
-                href={studentData.studentquestionids.second_question_github_link}
+                href={studentData.responseoftaskdetails.secondquestiongithublink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.studentquestionids.second_question_github_link}
+                {studentData.responseoftaskdetails.secondquestiongithublink}
               </a>
             </p>
-            <p className="text-sm mb-2">
-              <strong>Comment:</strong>{" "}
-              {studentData.studentquestionids.second_question_comment}
-            </p>
+            
           </div>
 
           {/* Third Question */}
           <div className="border border-gray-200 p-4 rounded">
             <h3 className="font-semibold mb-2">Third Question</h3>
             <p className="text-sm mb-2">
-              <strong>Question:</strong>{" "}
-              {studentData.studentquestionids.basic_question3_id}
-            </p>
-            <p className="text-sm mb-2">
               <strong>Live Link:</strong>{" "}
               <a
-                href={studentData.studentquestionids.third_question_live_link}
+                href={studentData.responseoftaskdetails.thirdquestionlivelink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.studentquestionids.third_question_live_link}
+                {studentData.responseoftaskdetails.thirdquestionlivelink}
               </a>
             </p>
             <p className="text-sm mb-2">
               <strong>GitHub Link:</strong>{" "}
               <a
-                href={studentData.studentquestionids.third_question_github_link}
+                href={studentData.responseoftaskdetails.thirdquestiongithublink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.studentquestionids.third_question_github_link}
+                {studentData.responseoftaskdetails.thirdquestiongithublink}
               </a>
             </p>
-            <p className="text-sm mb-2">
-              <strong>Comment:</strong>{" "}
-              {studentData.studentquestionids.third_question_comment}
-            </p>
+            
           </div>
 
           {/* Fourth Question */}
           <div className="border border-gray-200 p-4 rounded">
             <h3 className="font-semibold mb-2">Fourth Question</h3>
             
-            <p className="text-sm mb-2">
-              <strong>Question:</strong>{" "}
-              {studentData.studentquestionids.advance_question1_id}
-            </p>
-            <p className="text-sm mb-2">
-              <strong>Live Link:</strong>{" "}
-              <a
-                href={studentData.studentquestionids.fourth_question_live_link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {studentData.studentquestionids.fourth_question_live_link}
-              </a>
-            </p>
-            <p className="text-sm mb-2">
-              <strong>GitHub Link:</strong>{" "}
-              <a
-                href={studentData.studentquestionids.fourth_question_github_link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {studentData.studentquestionids.fourth_question_github_link}
-              </a>
-            </p>
-            <p className="text-sm mb-2">
-              <strong>Comment:</strong>{" "}
-              {studentData.studentquestionids.fourth_question_comment}
-            </p>
-          </div>
-
-          <div className="border border-gray-200 p-4 rounded">
-            <h3 className="font-semibold mb-2">Fifth Question</h3>
             
             <p className="text-sm mb-2">
-              <strong>Question:</strong>{" "}
-              {studentData.studentquestionids.advance_question1_id}
+              <strong>Live Link:</strong>{" "}
+              <a
+                href={studentData.responseoftaskdetails.fourthquestionlivelink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {studentData.responseoftaskdetails.fourthquestionlivelink}
+              </a>
             </p>
+            <p className="text-sm mb-2">
+              <strong>GitHub Link:</strong>{" "}
+              <a
+                href={studentData.responseoftaskdetails.fourthquestiongithublink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {studentData.responseoftaskdetails.fourthquestiongithublink}
+              </a>
+            </p>
+            
+          </div>
+
+          {/* <div className="border border-gray-200 p-4 rounded">
+            <h3 className="font-semibold mb-2">Fifth Question</h3>
+            
+            
             <p className="text-sm mb-2">
               <strong>Live Link:</strong>{" "}
               <a
-                href={studentData.studentquestionids.fourth_question_live_link}
+                href={studentData.responseoftaskdetails.figthquestiongithublink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -451,7 +407,7 @@ const StudentDetailPage = () => {
               <strong>Comment:</strong>{" "}
               {studentData.studentquestionids.fourth_question_comment}
             </p>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>

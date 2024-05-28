@@ -19,12 +19,12 @@ const AdminDashboard = () => {
   };
 
   const options = [
-    { id: 0, name: "Option 1", path: "/", element: <ChartContent /> },
-    { id: 2, name: "Option 2", path: "/checkbox", element: <CheckboxBar /> },
-    { id: 3, name: "Option 3", path: "/questions", element: <Questions /> },
+    { id: 0, name: "Chart", path: "/", element: <ChartContent /> },
+    { id: 2, name: "Pass Student", path: "/checkbox", element: <CheckboxBar /> },
+    { id: 3, name: "Questions", path: "/questions", element: <Questions /> },
     {
       id: 4,
-      name: "Option 4",
+      name: "Students",
       path: "/detailedquestion",
       element: <StudentScreen />,
     },
