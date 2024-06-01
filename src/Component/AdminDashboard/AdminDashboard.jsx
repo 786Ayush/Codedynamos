@@ -9,6 +9,7 @@ import StudentScreen from "./Student";
 import DetailedStudent from "./DetailedStudent";
 import StudentDetailPage from "./DetailedStudent";
 import Cookies from "js-cookie";
+import SendEmail from "./SendEmail";
 
 const AdminDashboard = () => {
   const [selectedOption, setSelectedOption] = useState(0);
@@ -20,13 +21,24 @@ const AdminDashboard = () => {
 
   const options = [
     { id: 0, name: "Chart", path: "/", element: <ChartContent /> },
-    { id: 2, name: "Pass Student", path: "/checkbox", element: <CheckboxBar /> },
+    {
+      id: 2,
+      name: "Pass Student",
+      path: "/checkbox",
+      element: <CheckboxBar />,
+    },
     { id: 3, name: "Questions", path: "/questions", element: <Questions /> },
     {
       id: 4,
       name: "Students",
       path: "/detailedquestion",
       element: <StudentScreen />,
+    },
+    {
+      id: 5,
+      name: "Send Email",
+      path: "/email",
+      element: <SendEmail />,
     },
   ];
 

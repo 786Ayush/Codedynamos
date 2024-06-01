@@ -61,7 +61,7 @@ const Contact = () => {
           </header>
 
           {/* Main Content */}
-          <div className="flex flex-col-reverse  md:flex-row justify-center items-start sm:p-8 pb-5 sm:h-[400px] bg-[#E5E7EB] text-white">
+          <div className="flex flex-col-reverse  md:flex-row justify-center items-start sm:p-8 pb-5 sm:h-[500px] bg-[#E5E7EB] text-white">
             {/* Contact Information */}
             <section className="sm:w-1/2  flex flex-col p-4 w-screen">
               <h2 className="text-2xl font-semibold mb-8 text-gray-800">

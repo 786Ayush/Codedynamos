@@ -16,6 +16,7 @@ import Protected from "./Component/Protected";
 import AdminLogin from "./Component/AdminLogin";
 import Dashboard from "./Component/StudentDashboard/StudentDashboard";
 import Submissionform from "./Component/StudentDashboard/Submissionform";
+import AdminProtected from "./Component/AdminProtected";
 
 function App() {
   return (
@@ -48,7 +49,14 @@ function App() {
             </Protected>
           }
         />
-        <Route path="/admindashboard/*" element={<AdminDashboard />} />
+        <Route
+          path="/admindashboard/*"
+          element={
+            <AdminProtected>
+              <AdminDashboard />
+            </AdminProtected>
+          }
+        />
         <Route path="/complete" element={<Complete />} />
       </Routes>
       {/* </Router> */}

@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 
 const AdminProtected = ({ children }) => {
-  const encryptedUser = Cookies.get("encryptedUser");
+  const encryptedUser = Cookies.get("encryptedAdminUser");
 
   // Check if encrypted user data exists
   if (!encryptedUser) {
