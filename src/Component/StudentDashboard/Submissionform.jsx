@@ -135,7 +135,7 @@ export default function Home() {
           Task Submission Form
         </h1>
         <form onSubmit={handleSubmit} className="w-full max-w-md text-center">
-          {userData && userData.sector === "web development" && (
+          {userData && userData.sector === "Web Development Intern" && (
             <>
               <div className="mb-4">
                 <Input

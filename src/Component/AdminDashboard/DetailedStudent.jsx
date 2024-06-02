@@ -159,60 +159,60 @@ console.log(studentData)
           <h2 className="text-xl font-semibold mb-4">Offer Information</h2>
           <p>
             <strong>Offer Letter:</strong>{" "}
-            {studentData.confirmation.OfferLetter ? "Received" : "Not Received"}
+            {studentData.confirmation?.OfferLetter ? "Received" : "Not Received"}
           </p>
           <p>
             <strong>Offer Letter Date:</strong>{" "}
-            {studentData.confirmation.OfferLetterDate}
+            {studentData.confirmation?.OfferLetterDate}
           </p>
           <p>
             <strong>Response of Task:</strong>{" "}
-            {studentData.confirmation.ResponseOfTask
+            {studentData.confirmation?.ResponseOfTask
               ? "Received"
               : "Not Received"}
           </p>
           <p>
             <strong>Response of Task Date:</strong>{" "}
-            {studentData.confirmation.ResponseOfTaskDate}
+            {studentData.confirmation?.ResponseOfTaskDate}
           </p>
           <p>
             <strong>Completion Certificate:</strong>{" "}
-            {studentData.confirmation.CompletionCertificate
+            {studentData.confirmation?.CompletionCertificate
               ? "Received"
               : "Not Received"}
           </p>
           <p>
             <strong>Completion Certificate Date:</strong>{" "}
-            {studentData.confirmation.CompletionCertificateDate || "N/A"}
+            {studentData.confirmation?.CompletionCertificateDate || "N/A"}
           </p>
           <p>
             <strong>Letter of Recommendation:</strong>{" "}
-            {studentData.confirmation.letterOfRecommendation
+            {studentData.confirmation?.letterOfRecommendation
               ? "Received"
               : "Not Received"}
           </p>
           <p>
             <strong>Letter of Recommendation Date:</strong>{" "}
-            {studentData.confirmation.letterOfRecommendationDate}
+            {studentData.confirmation?.letterOfRecommendationDate}
           </p>
           <p>
             <strong>Goodies:</strong>{" "}
-            {studentData.confirmation.Goodies ? "Received" : "Not Received"}
+            {studentData.confirmation?.Goodies ? "Received" : "Not Received"}
           </p>
           <p>
             <strong>Goodies Received Date:</strong>{" "}
-            {studentData.confirmation.GoodiesReceivedDate}
+            {studentData.confirmation?.GoodiesReceivedDate}
           </p>
           <p>
             <strong>Payment:</strong>{" "}
-            {studentData.responseoftaskdetails.payment_boolean ? "Paid" : "Not Paid"}
+            {studentData.responseoftaskdetails?.payment_boolean ? "Paid" : "Not Paid"}
           </p>
           <p>
-            <strong>Payment Date:</strong> {studentData.responseoftaskdetails.payment_date}
+            <strong>Payment Date:</strong> {studentData.responseoftaskdetails?.payment_date}
           </p>
           
           <p>
-            <strong>Payment Link:</strong> {studentData.responseoftaskdetails.payment_link}
+            <strong>Payment Link:</strong> {studentData.responseoftaskdetails?.payment_link}
           </p>
         </section>
 
@@ -227,43 +227,43 @@ console.log(studentData)
           </p>
           <p>
             <strong>Basic Question 1 ID:</strong>{" "}
-            {studentData.studentquestionids.basic_question1_id}
+            {studentData.studentquestionids?.basic_question1_id}
           </p>
           <p>
             <strong>Basic Question 2 ID:</strong>{" "}
-            {studentData.studentquestionids.basic_question2_id}
+            {studentData.studentquestionids?.basic_question2_id}
           </p>
           <p>
             <strong>Basic Question 3 ID:</strong>{" "}
-            {studentData.studentquestionids.basic_question3_id}
+            {studentData.studentquestionids?.basic_question3_id}
           </p>
           <p>
             <strong>Advance Question 1 ID:</strong>{" "}
-            {studentData.studentquestionids.advance_question1_id}
+            {studentData.studentquestionids?.advance_question1_id}
           </p>
           <p>
             <strong>Advance Question 2 ID:</strong>{" "}
-            {studentData.studentquestionids.advance_question2_id}
+            {studentData.studentquestionids?.advance_question2_id}
           </p>
           <p>
             <strong>Basic Question 1 Check:</strong>{" "}
-            {studentData.studentquestionids.basic_question1_check ? "Yes" : "No"}
+            {studentData.studentquestionids?.basic_question1_check ? "Yes" : "No"}
           </p>
           <p>
             <strong>Basic Question 2 Check:</strong>{" "}
-            {studentData.studentquestionids.basic_question2_check ? "Yes" : "No"}
+            {studentData.studentquestionids?.basic_question2_check ? "Yes" : "No"}
           </p>
           <p>
             <strong>Basic Question 3 Check:</strong>{" "}
-            {studentData.studentquestionids.basic_question3_check ? "Yes" : "No"}
+            {studentData.studentquestionids?.basic_question3_check ? "Yes" : "No"}
           </p>
           <p>
             <strong>Advance Question 1 Check:</strong>{" "}
-            {studentData.studentquestionids.advance_question1_check ? "Yes" : "No"}
+            {studentData.studentquestionids?.advance_question1_check ? "Yes" : "No"}
           </p>
           <p>
             <strong>Advance Question 2 Check:</strong>{" "}
-            {studentData.studentquestionids.advance_question2_check ? "Yes" : "No"}
+            {studentData.studentquestionids?.advance_question2_check ? "Yes" : "No"}
           </p>
         </section>
       </div>
@@ -279,21 +279,21 @@ console.log(studentData)
             <p className="text-sm mb-2">
               <strong>Live Link:</strong>{" "}
               <a
-                href={studentData.responseoftaskdetails.firstquestionlivelink}
+                href={studentData.responseoftaskdetails?.firstquestionlivelink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.responseoftaskdetails.firstquestionlivelink}
+                {studentData.responseoftaskdetails?.firstquestionlivelink}
               </a>
             </p>
             <p className="text-sm mb-2">
               <strong>GitHub Link:</strong>{" "}
               <a
-                href={studentData.responseoftaskdetails.firstquestiongithublink}
+                href={studentData.responseoftaskdetails?.firstquestiongithublink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.responseoftaskdetails.firstquestiongithublink}
+                {studentData.responseoftaskdetails?.firstquestiongithublink}
               </a>
             </p>
             
@@ -305,21 +305,21 @@ console.log(studentData)
             <p className="text-sm mb-2">
               <strong>Live Link:</strong>{" "}
               <a
-                href={studentData.responseoftaskdetails.secondquestionlivelink}
+                href={studentData.responseoftaskdetails?.secondquestionlivelink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.responseoftaskdetails.secondquestionlivelink}
+                {studentData.responseoftaskdetails?.secondquestionlivelink}
               </a>
             </p>
             <p className="text-sm mb-2">
               <strong>GitHub Link:</strong>{" "}
               <a
-                href={studentData.responseoftaskdetails.secondquestiongithublink}
+                href={studentData.responseoftaskdetails?.secondquestiongithublink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.responseoftaskdetails.secondquestiongithublink}
+                {studentData.responseoftaskdetails?.secondquestiongithublink}
               </a>
             </p>
             
@@ -331,21 +331,21 @@ console.log(studentData)
             <p className="text-sm mb-2">
               <strong>Live Link:</strong>{" "}
               <a
-                href={studentData.responseoftaskdetails.thirdquestionlivelink}
+                href={studentData.responseoftaskdetails?.thirdquestionlivelink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.responseoftaskdetails.thirdquestionlivelink}
+                {studentData.responseoftaskdetails?.thirdquestionlivelink}
               </a>
             </p>
             <p className="text-sm mb-2">
               <strong>GitHub Link:</strong>{" "}
               <a
-                href={studentData.responseoftaskdetails.thirdquestiongithublink}
+                href={studentData.responseoftaskdetails?.thirdquestiongithublink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.responseoftaskdetails.thirdquestiongithublink}
+                {studentData.responseoftaskdetails?.thirdquestiongithublink}
               </a>
             </p>
             
@@ -359,21 +359,21 @@ console.log(studentData)
             <p className="text-sm mb-2">
               <strong>Live Link:</strong>{" "}
               <a
-                href={studentData.responseoftaskdetails.fourthquestionlivelink}
+                href={studentData.responseoftaskdetails?.fourthquestionlivelink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.responseoftaskdetails.fourthquestionlivelink}
+                {studentData.responseoftaskdetails?.fourthquestionlivelink}
               </a>
             </p>
             <p className="text-sm mb-2">
               <strong>GitHub Link:</strong>{" "}
               <a
-                href={studentData.responseoftaskdetails.fourthquestiongithublink}
+                href={studentData.responseoftaskdetails?.fourthquestiongithublink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {studentData.responseoftaskdetails.fourthquestiongithublink}
+                {studentData.responseoftaskdetails?.fourthquestiongithublink}
               </a>
             </p>
             
