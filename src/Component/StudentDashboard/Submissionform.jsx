@@ -117,9 +117,10 @@ export default function Home() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = await validateForm();
+    // const validationErrors = await validateForm();
 
-    if (!validationErrors) {
+    // if (!validationErrors)
+       {
       // Submit form data
       await handlePaymentRequest();
       console.log(formData);
