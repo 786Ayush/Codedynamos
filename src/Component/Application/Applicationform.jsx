@@ -108,14 +108,6 @@ const ApplicationForm = () => {
   const handleSubmit = (e, sector) => {
     e.preventDefault();
 
-    if (!/^\d{10}$/.test(formData.phoneNumber)) {
-      setErrors({
-        ...errors,
-        phoneNumber:
-          "Please enter a valid phone number in the format XXXXXXXXXX",
-      });
-      return;
-    }
 
     // Validation for email address
     if (!/\S+@\S+\.\S+/.test(formData.emailAddress)) {
@@ -169,7 +161,7 @@ const ApplicationForm = () => {
       console.log(data);
       // Retrieve the URL of the uploaded file
       const Url =
-        "https://lawxcdsxvkevyfiudefn.supabase.co/storage/v1/object/public/" +
+        process.env.REACT_APP_ResumeURL +
         data.fullPath;
       setResumeUrl(Url);
       console.log("Resume URL:", resumeUrl);
@@ -197,12 +189,32 @@ const ApplicationForm = () => {
     const value = extractValueFromURL(currentURL);
 
     console.log(value); // Output: Artificial Intelligence Intern
+    // Get the current date
+    const currentDate = new Date();
+
+    // Get the current year and month
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
+    // Calculate the first date of the next month
+    const nextMonth = (currentMonth + 1) % 12;
+    const nextYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+    const firstDateNextMonth = new Date(nextYear, nextMonth, 1);
+
+    // Format the date as yyyy-mm-dd
+    const year = firstDateNextMonth.getFullYear();
+    const month = String(firstDateNextMonth.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const day = String(firstDateNextMonth.getDate()).padStart(2, "0");
+
+    const formattedDate = `${year}-${month}-${day}`;
+
+    // console.log(formattedDate);
 
     const { data, error } = await supabase.from("basic_details").insert([
       {
-        first_name: formData.firstName,
-        middle_name: formData.middleName,
-        last_name: formData.lastName,
+        first_name: formData.firstName.replace(/ /g, "_"),
+        middle_name: formData.middleName.replace(/ /g, "_"),
+        last_name: formData.lastName.replace(/ /g, "_"),
         country: formData.country,
         how_you_heard: formData.howYouHeard,
         phone: formData.phoneNumber,
@@ -213,8 +225,9 @@ const ApplicationForm = () => {
         sector: value,
         resume_link: resumeUrl,
         password: formData.firstName + "@123",
+        Start_Date: formattedDate,
       },
-    ]);
+    ]).select();
 
     if (error) {
       console.error(
@@ -248,7 +261,54 @@ const ApplicationForm = () => {
       );
       return;
     }
+    const { data: questions, error: questionserror } = await supabase
+      .from("questions")
+      .select("*")
+      .eq("Sector", value);
 
+    if (questionserror) {
+      console.error("Error getting question details:", questionserror.message);
+      return;
+    }
+    console.log("questions", questions);
+    const basicQuestions = questions
+      .filter((q) => q.level === "Basic")
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const advancedQuestions = questions
+      .filter((q) => q.level === "Advanced")
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const selectedBasic = basicQuestions.slice(0, 3);
+    const selectedAdvanced = advancedQuestions.slice(0, 2);
+
+    // Extract question IDs
+    const basicQuestion1Id = selectedBasic[0]?.QuestionID || null;
+    const basicQuestion2Id = selectedBasic[1]?.QuestionID || null;
+    const basicQuestion3Id = selectedBasic[2]?.QuestionID || null;
+    const advancedQuestion1Id = selectedAdvanced[0]?.QuestionID || null;
+    const advancedQuestion2Id = selectedAdvanced[1]?.QuestionID || null;
+
+    const { data: insertedquestion, error: insertedquestionerror } =
+      await supabase.from("studentquestionids").insert([
+        {
+          studentid: data[0].student_id,
+          basic_question1_id: basicQuestion1Id,
+          basic_question2_id: basicQuestion2Id,
+          basic_question3_id: basicQuestion3Id,
+          advance_question1_id: advancedQuestion1Id,
+          advance_question2_id: advancedQuestion2Id,
+          basic_question1_check: false,
+          basic_question2_check: false,
+          basic_question3_check: false,
+          advance_question1_check: false,
+          advance_question2_check: false,
+        },
+      ]);
+
+    if (error) {
+      console.error("Error inserting data:", insertedquestionerror);
+    } else {
+      console.log("Data inserted successfully:", insertedquestion);
+    }
     console.log("Inserted educational details:", insertedEducationDetails);
     setform("submit");
   };
@@ -279,19 +339,19 @@ const ApplicationForm = () => {
               <div className="flex justify-center mt-4 md:mt-6 relative items-center ">
                 <FaDotCircle className="text-primary w-8 h-8 " />
 
-                <Divider className="text-seperate h-1 w-32 mx-3" />
+                <Divider className="text-seperate h-1 w-8  xl:w-32 xl:mx-3" />
 
                 <CiCircleChevRight className="text-primary w-7 h-7 " />
 
-                <Divider className="text-seperate h-1 w-32 mx-3" />
+                <Divider className="text-seperate h-1 w-8 xl:w-32 xl:mx-3" />
 
                 <CiCircleChevRight className="text-primary w-7 h-7 " />
 
-                <Divider className="text-seperate h-1 w-32 mx-3" />
+                <Divider className="text-seperate h-1 w-8 xl:w-32 xl:mx-3" />
 
                 <CiCircleChevRight className="text-primary w-7 h-7 " />
               </div>
-              <div className="flex w-full items-center justify-between">
+              <div className="xl:flex w-full items-center justify-between hidden">
                 <span className="w-15 ">Basic Details </span>
                 <span className="w-15 ">Educational Details </span>
                 <span className="w-15 ">Upload Resume </span>
@@ -571,14 +631,14 @@ const ApplicationForm = () => {
               </Link>
               <div className="flex justify-center mt-4 md:mt-6 relative items-center px-5">
                 <FaRegCheckCircle className="text-primary w-5 h-5" />
-                <Divider className="text-separate h-1 w-32 mx-3" />
+                <Divider className="text-separate h-1 w-8 xl:w-32 xl:mx-3" />
                 <FaDotCircle className="text-primary w-8 h-8 " />
-                <Divider className="text-separate h-1 w-32 mx-3" />
+                <Divider className="text-separate h-1 w-8 xl:w-32 xl:mx-3" />
                 <CiCircleChevRight className="text-primary w-7 h-7 " />
-                <Divider className="text-separate h-1 w-32 mx-3" />
+                <Divider className="text-separate h-1 w-8 xl:w-32 xl:mx-3" />
                 <CiCircleChevRight className="text-primary w-7 h-7 " />
               </div>
-              <div className="flex w-full items-center justify-between">
+              <div className="xl:flex w-full items-center justify-between hidden">
                 <span className="w-15 ">Basic Details </span>
                 <span className="w-15 ">Educational Details </span>
                 <span className="w-15 ">Upload Resume </span>
@@ -772,19 +832,19 @@ const ApplicationForm = () => {
               <div className="flex justify-center mt-4 md:mt-6 relative items-center px-5">
                 <FaRegCheckCircle className="text-primary w-5 h-5" />
 
-                <Divider className="text-seperate h-1 w-32 mx-3" />
+                <Divider className="text-seperate h-1 w-8 xl:w-32 xl:mx-3" />
 
                 <FaRegCheckCircle className="text-primary w-5 h-5" />
 
-                <Divider className="text-seperate h-1 w-32 mx-3" />
+                <Divider className="text-seperate h-1 w-8 xl:w-32 xl:mx-3" />
 
                 <FaDotCircle className="text-primary w-8 h-8 " />
 
-                <Divider className="text-seperate h-1 w-32 mx-3" />
+                <Divider className="text-seperate h-1 w-8 xl:w-32 xl:mx-3" />
 
                 <CiCircleChevRight className="text-primary w-7 h-7 " />
               </div>
-              <div className="flex w-full items-center justify-between">
+              <div className="xl:flex w-full items-center justify-between hidden">
                 <span className="w-15 ">Basic Details </span>
                 <span className="w-15 ">Educational Details </span>
                 <span className="w-15 ">Upload Resume </span>
@@ -858,19 +918,19 @@ const ApplicationForm = () => {
                 <div className="flex justify-center mt-4 md:mt-6 relative items-center px-5">
                   <FaRegCheckCircle className="text-primary w-5 h-5" />
 
-                  <Divider className="text-seperate h-1 w-32 mx-3" />
+                  <Divider className="text-seperate h-1 w-8 xl:w-32 xl:mx-3" />
 
                   <FaRegCheckCircle className="text-primary w-5 h-5" />
 
-                  <Divider className="text-seperate h-1 w-32 mx-3" />
+                  <Divider className="text-seperate h-1 w-8 xl:w-32 xl:mx-3" />
 
                   <FaRegCheckCircle className="text-primary w-5 h-5" />
 
-                  <Divider className="text-seperate h-1 w-32 mx-3" />
+                  <Divider className="text-seperate h-1 w-8 xl:w-32 xl:mx-3" />
 
                   <FaDotCircle className="text-primary w-8 h-8 " />
                 </div>
-                <div className="flex w-full items-center justify-between">
+                <div className="xl:flex w-full items-center justify-between hidden">
                   <span className="w-15 ">Basic Details </span>
                   <span className="w-15 ">Educational Details </span>
                   <span className="w-15 ">Upload Resume </span>
@@ -881,60 +941,104 @@ const ApplicationForm = () => {
                     Terms and Conditions
                   </div>
                   <div className="txt h-[40vh] overflow-auto rounded border-separate border-3 p-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Natus necessitatibus sed inventore reiciendis enim incidunt
-                    odit dolores, harum ullam. Quae nihil vitae ducimus eum
-                    perferendis, numquam rerum eaque autem veniam assumenda
-                    molestias quaerat minus, accusamus totam suscipit aliquid
-                    ratione voluptatem a expedita eligendi aut accusantium ipsa!
-                    Atque, doloremque! Aspernatur nostrum eaque nisi labore non
-                    temporibus dicta? Reprehenderit nostrum modi eos similique,
-                    temporibus dolor? Est fuga maiores aut asperiores dolor
-                    voluptas expedita inventore. Facere, ullam totam accusantium
-                    perspiciatis voluptatem a repudiandae dolor fugit voluptate,
-                    culpa debitis consectetur explicabo quisquam deserunt ea et
-                    cupiditate. Labore minima dignissimos consectetur deleniti
-                    sint porro doloribus esse facere nobis, neque suscipit hic
-                    est dolorem mollitia libero ipsum harum corporis quia
-                    recusandae. Rerum odit enim perspiciatis veritatis!
-                    Voluptate sapiente architecto quisquam? Velit quae cum
-                    dolorum minus, consequuntur vitae hic, fugit ex recusandae
-                    est neque voluptate dolor voluptatibus illum alias corporis
-                    unde. Totam illo laboriosam eos molestiae quis earum quas
-                    nisi esse. Nesciunt vitae aliquid quos aut magni quaerat,
-                    sapiente voluptatum fugit, numquam a voluptate hic!
-                    Voluptatibus minima provident voluptatem esse adipisci,
-                    ducimus, facere totam dolore fugiat fugit modi beatae
-                    expedita pariatur reprehenderit magnam cum aliquid a
-                    asperiores obcaecati veniam doloribus molestiae assumenda
-                    tempora. Numquam inventore doloribus quos officia iusto
-                    quisquam impedit dolorum labore tempora pariatur maiores
-                    dolore fugiat, maxime quibusdam. Culpa dolore aspernatur
-                    sequi ut vitae nesciunt id eum necessitatibus, atque
-                    eveniet, ea perferendis nostrum perspiciatis quia, ab earum
-                    quisquam illum cupiditate laboriosam. Rem, sit dolorum
-                    distinctio velit cupiditate suscipit impedit quos a culpa.
-                    Voluptatibus, cumque, sapiente tempore enim delectus quasi
-                    atque veritatis deserunt earum deleniti illum iusto iste
-                    necessitatibus molestiae! Nihil explicabo expedita alias
-                    doloribus aliquam voluptate impedit? Corrupti nostrum in,
-                    quo molestiae, ipsam, laboriosam quasi necessitatibus
-                    voluptas a unde sit itaque totam nam dignissimos sint. Porro
-                    iusto quas illo mollitia commodi placeat aspernatur neque
-                    ratione reprehenderit dolor. Laudantium quam, non, voluptate
-                    exercitationem obcaecati, veritatis expedita minus numquam
-                    aliquam fugiat fugit? Accusantium asperiores harum error.
-                    Cum, ut magni. Quidem dignissimos vero quo ea ratione
-                    mollitia odit voluptas ut. Exercitationem aut magnam sunt
-                    cumque hic laudantium ducimus facere illum rerum, culpa amet
-                    dolor? Molestias fugiat ex veritatis, inventore quia sequi
-                    eligendi voluptates vero quaerat dolorem ratione illum.
-                    Sunt, rerum. Voluptas, exercitationem labore! Est numquam
-                    nam quaerat ut, id ratione. Perspiciatis laboriosam repellat
-                    culpa amet alias, magni quaerat, similique aspernatur natus
-                    debitis, consequuntur voluptates molestiae recusandae a
-                    sequi odit ea eos accusamus sit quam adipisci. Error,
-                    laboriosam quasi.
+                    User Information:
+                    <br />
+                    The information you provide during the internship
+                    registration will not be shared outside of CodeDynamos. It
+                    will only be used for CodeDynamos-related work or marketing
+                    purposes. <br />
+                    Internship Application: <br />
+                    Your application status will be updated before the start of
+                    the internship. <br />
+                    Confirmation of Intern: <br />
+                    You will receive an email from the CodeDynamos Internship
+                    program. It is not confirmed until the offer letter is
+                    accepted by the intern. <br />
+                    Project/Task Allocations: <br />
+                    Your project and task assignments will be communicated
+                    through your the internship portal. You must complete and
+                    submit your projects/tasks only through the internship
+                    portal. Failure to submit within the specified time will
+                    disqualify you from receiving swags. <br />
+                    Submission: <br />
+                    You must submit your projects through the internship portal.
+                    Maintenance charges may apply during the submission process.{" "}
+                    <br />
+                    Certificates: <br />
+                    Certificates will be issued only after the completion of
+                    your internship. You will receive your certificates within
+                    2-3 days of internship completion. <br />
+                    Letter of Recommendation (LOR): <br />
+                    You will receive an LOR only after completing your
+                    internship. You will receive your LOR within 2-3 days of
+                    internship completion. <br />
+                    Eligibility Criteria: <br />
+                    i. If you complete at least one project out of four, you are
+                    eligible for a soft copy of your internship completion
+                    certificate. <br />
+                    ii. If you complete at least two projects out of four, you
+                    are eligible for a soft copy of an LOR with the certificate.{" "}
+                    <br />
+                    iii. If you complete two projects and one golden project,
+                    you are eligible for swags verification. However,
+                    eligibility for swags is subject to meeting specific
+                    requirements. <br />
+                    Swags Eligibility Criteria: <br />
+                    i. The Golden Project must be dynamic and have proper UI and
+                    user management. Console-based projects are not considered
+                    as Golden Projects. <br />
+                    ii. The first two simple projects will not qualify as Golden
+                    Projects, so there are no restrictions for them. <br />
+                    iii. Data Science interns must provide complete projects
+                    with proper UI; Jupiter or Colab files will not be accepted
+                    for swags. <br />
+                    iv. Having completed two simple projects and one Golden
+                    Project does not automatically make you eligible for swags.
+                    You must meet the project requirements. <br />
+                    v. Swags will include a hardcopy of your certificate, Letter
+                    of Recommendation (LOR), and some goodies delivered to your
+                    doorstep. <br />
+                    vi. Swags are currently only available for locations within
+                    India. <br />
+                    vii. For Golden Projects, a LinkedIn video of your project
+                    output is mandatory. Without the video, swags will not be
+                    awarded. <br />
+                    viii. The forms provided for swags delivery must be filled
+                    within the given duration. Failure to do so will result in
+                    ineligibility for swags, and no exceptions will be made.{" "}
+                    <br />
+                    LinkedIn Posts: <br />
+                    You must make a LinkedIn post of your golden project output
+                    video. Posting offer letters and others is optional, but
+                    posting a swags post on LinkedIn is mandatory after
+                    receiving swags. <br />
+                    Project Verification: <br />
+                    For project verification, please attach a proper fee payment
+                    proof. Failure to provide this proof will result in the
+                    rejection of your project verification. If our team finds
+                    common or forged proofs, the user will be permanently banned
+                    from CodeDynamos Internship. <br />
+                    Project Authenticity: <br />
+                    Your project must be your original work. If your golden
+                    project is found to be copied, you are not eligible for
+                    swags. <br />
+                    Termination: <br />
+                    Legal action will be taken against individuals who make
+                    false claims or engage in inappropriate behavior towards
+                    CodeDynamos and its executives. <br />
+                    Support: <br />
+                    All queries will be addressed via WhatsApp communication. No
+                    phone support is available. Please allow up to two days for
+                    our executives to respond. <br />
+                    Stipend: <br />
+                    This is an educational internship, and no stipend will be
+                    provided. <br />
+                    Future Opportunities: <br />
+                    Participating in the internship does not guarantee job
+                    offers from CodeDynamos. <br />
+                    Future Opportunities: <br />
+                    Participating in the internship does not guarantee job
+                    offers from CodeDynamos. <br />
                   </div>
                   <div className="flex items-center mt-4">
                     <input
@@ -1013,8 +1117,7 @@ const ApplicationForm = () => {
               Thank you for submitting your application for the internship
               position. We appreciate your interest in joining our team. Our
               hiring team will review your application carefully. If you are
-              selected for the next stage of the application process, you will
-              be contacted via email within the next few weeks.
+              selected you will be contacted via email within the next few days.
             </p>
           </div>
           <Footer />

@@ -30,7 +30,7 @@ export default function FaQ() {
             bg="white"
             indicator={({ isOpen }) => (isOpen ? <FaMinus /> : <FaPlus />)}
           >
-            The internship provides hands-on experience in [specific field],
+            The internship provides hands-on experience in specific field you will apply,
             exposure to real-world projects, mentorship from industry
             professionals, and networking opportunities.
           </AccordionItem>
@@ -44,7 +44,7 @@ export default function FaQ() {
             indicator={({ isOpen }) => (isOpen ? <FaMinus /> : <FaPlus />)}
           >
             The duration of the internship varies depending on the program.
-            Typically, internships last for [duration].
+            Typically, internships last for 1 Month.
           </AccordionItem>
           <AccordionItem
             key="3"
@@ -56,7 +56,7 @@ export default function FaQ() {
             indicator={({ isOpen }) => (isOpen ? <FaMinus /> : <FaPlus />)}
           >
             The required skills vary depending on the internship position.
-            However, proficiency in [specific skills] is usually preferred.
+            However, proficiency in  problem-solving skills, good communication, teamwork abilities, eagerness to learn is usually preferred.
           </AccordionItem>
           <AccordionItem
             key="4"

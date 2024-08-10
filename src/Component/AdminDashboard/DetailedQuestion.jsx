@@ -66,28 +66,61 @@ const DetailedQuestion = () => {
       setQuestion("");
     }
   };
+  const handleCheckboxChange = async (questionIndex) => {
+    const questionToDelete = questionsList[questionIndex];
 
-  const handleCheckboxChange = (questionIndex) => {
     const updatedQuestions = [...questionsList];
-    updatedQuestions[questionIndex].checked = !updatedQuestions[questionIndex].checked;
+    const currentQuestion = updatedQuestions[questionIndex];
+    const newCurrentQuestionStatus = !currentQuestion.Current_question;
+
+    // Update the Current_question status in Supabase
+
+    currentQuestion.Current_question = newCurrentQuestionStatus;
 
     // Count the number of checked questions
-    const checkedCount = updatedQuestions.filter((q) => q.checked).length;
+    const checkedCount = updatedQuestions.filter(
+      (q) => q.Current_question
+    ).length;
 
     // Allow only up to 5 questions to be checked
     if (checkedCount <= 5) {
+      const { error } = await supabase
+        .from("questions")
+        .update({ Current_question: newCurrentQuestionStatus })
+        .eq("QuestionID", questionToDelete.QuestionID);
+
+      if (error) {
+        console.error("Error updating Current_question:", error);
+        return;
+      }
+
       setQuestionsList(updatedQuestions);
     } else {
-      // If more than 5, uncheck the last checked
-      updatedQuestions[questionIndex].checked = false;
+      // If more than 5, revert the change
+      currentQuestion.Current_question = !newCurrentQuestionStatus;
     }
   };
 
-  const handleDeleteQuestion = (questionIndex) => {
-    const updatedQuestions = questionsList.filter((_, i) => i !== questionIndex);
+  const handleDeleteQuestion = async (questionIndex) => {
+    const questionToDelete = questionsList[questionIndex];
+    // console.log(questionToDelete.QuestionID);
+    // Remove from Supabase
+    const { error } = await supabase
+      .from("questions")
+      .delete()
+      .eq("QuestionID", questionToDelete.QuestionID);
+
+    if (error) {
+      console.error("Error deleting question:", error);
+      return;
+    }
+
+    // Update local state
+    const updatedQuestions = questionsList.filter(
+      (_, i) => i !== questionIndex
+    );
     setQuestionsList(updatedQuestions);
   };
-
   return (
     <>
       <div className="p-4 bg-white rounded shadow-md mb-2">

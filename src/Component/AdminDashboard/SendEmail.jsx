@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../utils/Supabase";
+import emailjs from "@emailjs/browser";
 
 const SendEmail = () => {
   const [checkboxes, setCheckboxes] = useState({});
@@ -7,17 +8,19 @@ const SendEmail = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const date = new Date();
   date.setDate(1); // Set to the 1st day of the current month
-  const [fromdate, setfromDate] = useState(date.toISOString().split("T")[0]);
-  const [todate, settoDate] = useState(new Date().toISOString().split("T")[0]);
-
+  const [fromdate, setFromDate] = useState(date.toISOString().split("T")[0]);
+  const [todate, setToDate] = useState(new Date().toISOString().split("T")[0]);
   const [data, setData] = useState([]);
+  const [update, setupdate] = useState(0);
+  const [filteredData, setfilteredData] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const { data: basicDetails, error: basicDetailsError } = await supabase
         .from("basic_details")
         .select("*")
-        .gt("created_date", fromdate) // Filter by greater than fromDate
-        .lt("created_date", todate); // Filter by less than toDate
+        .gt("created_date", fromdate)
+        .eq("email_sent", false);
 
       if (basicDetailsError) {
         console.error(
@@ -27,54 +30,108 @@ const SendEmail = () => {
         return;
       }
 
+      const filtered = basicDetails.filter((item) => {
+        return (
+          item.student_id.toString().includes(searchTerm) ||
+          (item.first_name &&
+            item.first_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (item.last_name &&
+            item.last_name.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+      });
+
+      setfilteredData(filtered);
       setData(basicDetails);
     };
 
     fetchData();
-  }, []);
+  }, [fromdate, todate, update]);
 
   const handleCheckboxAndSelectChange = (rowData, checkboxName) => {
     const updatedCheckboxState = {
       ...checkboxes,
-      [rowData.id]: {
-        ...checkboxes[rowData.id],
-        [checkboxName]: !checkboxes[rowData.id]?.[checkboxName],
+      [rowData.student_id]: {
+        ...checkboxes[rowData.student_id],
+        [checkboxName]: !checkboxes[rowData.student_id]?.[checkboxName],
       },
     };
-    const updatedSelectedData = !checkboxes[rowData.id]?.[checkboxName]
+    const updatedSelectedData = !checkboxes[rowData.student_id]?.[checkboxName]
       ? [...selectedData, rowData]
-      : selectedData.filter((item) => item.id !== rowData.id);
+      : selectedData.filter((item) => item.student_id !== rowData.student_id);
+
     setCheckboxes(updatedCheckboxState);
     setSelectedData(updatedSelectedData);
   };
 
-  const filteredData = data.filter((item) => {
-    return (
-      item.student_id.toString().includes(searchTerm) ||
-      (item.first_name &&
-        item.first_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (item.last_name &&
-        item.last_name.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
-  });
+  // const filtered = data.filter((item) => {
+  //   return (
+  //     item.student_id.toString().includes(searchTerm) ||
+  //     (item.first_name &&
+  //       item.first_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+  //     (item.last_name &&
+  //       item.last_name.toLowerCase().includes(searchTerm.toLowerCase()))
+  //   );
+  // });
+
+  // setfilteredData(filtered);
+
   const handleSend = async () => {
-    const config = {
-      SecureToken: "e071229f-d686-4318-864b-f966c5448984",
-      To: "guptaayush617@gmail.com",
-      From: "ayush.gupta2020@glbajajgroup.org",
-      Subject: "Offer letter",
-      Body: "body",
-    };
+    for (const student of selectedData) {
+      const emailData = {
+        to_email: student.email,
+        name:
+          student.first_name +
+          " " +
+          (student.middle_name === "" ? "" : student.middle_name + " ") +
+          student.last_name,
+        position: student.sector,
+        start_date: student.Start_Date,
+        duration: "1 month",
+        email: student.email,
+        password: student.password,
+      };
 
-    if (window.Email) {
-      window.Email.send(config)
-        .then(() => alert("Email sent successfully"))
-        .catch((error) => alert("Failed to send email: " + error.message));
-    } else {
-      alert("Email service is not available.");
+      const serviceId = process.env.REACT_APP_serviceId; //"service_p5oq0q1";
+      const templateId = process.env.REACT_APP_templateId; //"template_z41y55f";
+      const publicKey = process.env.REACT_APP_publicKey; //"LO3Xwt5zDzIeR-5gK";
+
+      try {
+        const response = await emailjs.send(
+          serviceId,
+          templateId,
+          emailData,
+          publicKey
+        );
+
+        console.log("EmailJS response:", response);
+        if (response.status === 200) {
+          console.log("Email sent successfully");
+          const { error, data } = await supabase
+            .from("basic_details")
+            .update({ email_sent: true })
+            .eq("student_id", student.student_id)
+            .select();
+          console.log(data);
+          if (error) console.log("Error updating email_sent:", error);
+          // alert("Email sent successfully");
+        } else {
+          console.warn("Unexpected response from EmailJS:", response);
+          alert("Unexpected response from email service");
+          setupdate(update + 1);
+        }
+      } catch (error) {
+        console.error("Error sending email:", error);
+        alert("Failed to send email: " + error.message);
+      }
     }
+    const remainingData = filteredData.filter(
+      (item) =>
+        !selectedData.some(
+          (selected) => selected.student_id === item.student_id
+        )
+    );
+    setfilteredData(remainingData);
   };
-
 
   return (
     <div className="overflow-x-auto m-4 bg-white p-3 rounded">
@@ -85,22 +142,22 @@ const SendEmail = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="border border-gray-300 rounded p-2 mb-4 w-full"
       />
-      <div class="flex justify-between my-2">
+      <div className="flex justify-between my-2">
         <input
           type="date"
           name="from"
           id="from"
           value={fromdate}
-          onChange={(e) => setfromDate(e.target.value)}
-          class="appearance-none block  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          onChange={(e) => setFromDate(e.target.value)}
+          className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         />
         <input
           type="date"
           name="to"
           id="to"
           value={todate}
-          onChange={(e) => settoDate(e.target.value)}
-          class="appearance-none block  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          onChange={(e) => setToDate(e.target.value)}
+          className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         />
       </div>
 
@@ -115,7 +172,7 @@ const SendEmail = () => {
         </thead>
         <tbody>
           {filteredData.map((rowData) => (
-            <tr key={rowData.id}>
+            <tr key={rowData.student_id}>
               <td className="p-4 text-center">{rowData.student_id}</td>
               <td className="p-4 text-center">{rowData.first_name}</td>
               <td className="p-4 text-center">{rowData.last_name}</td>
@@ -123,7 +180,7 @@ const SendEmail = () => {
                 <input
                   type="checkbox"
                   className="form-checkbox h-6 w-6 mr-2"
-                  checked={checkboxes[rowData.id]?.select || false}
+                  checked={checkboxes[rowData.student_id]?.select || false}
                   onChange={() =>
                     handleCheckboxAndSelectChange(rowData, "select")
                   }

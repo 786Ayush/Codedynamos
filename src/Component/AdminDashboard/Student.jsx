@@ -44,7 +44,7 @@ const StudentScreen = () => {
         <input
           type="text"
           placeholder="Search by ID or Name"
-          className="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
+          className="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full p-4"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

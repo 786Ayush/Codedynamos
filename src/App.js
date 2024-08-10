@@ -11,7 +11,7 @@ import OfferLetter from "./Component/OfferLetter";
 import ApplicationForm from "./Component/Application/Applicationform";
 import AdminDashboard from "./Component/AdminDashboard/AdminDashboard";
 import Internships from "./Component/Internship/Internships";
-import Complete from "./Component/Application/Complete";
+
 import Protected from "./Component/Protected";
 import AdminLogin from "./Component/AdminLogin";
 import Dashboard from "./Component/StudentDashboard/StudentDashboard";
@@ -57,7 +57,7 @@ function App() {
             </AdminProtected>
           }
         />
-        <Route path="/complete" element={<Complete />} />
+        
       </Routes>
       {/* </Router> */}
     </div>

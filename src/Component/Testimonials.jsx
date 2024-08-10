@@ -6,57 +6,65 @@ import { FaCaretRight } from "react-icons/fa";
 const Testimonials = () => {
   const [currentPage, setCurrentPage] = useState(0); // Changed initial page to 0
   const testimonialsPerPage = 3;
-
   const testimonials = [
     {
       name: "Sarah M.",
       field: "Web Development Intern",
       message:
         "This internship has been an invaluable experience for me as a web development enthusiast. The hands-on projects and mentorship provided have greatly enhanced my skills and confidence in building responsive and user-friendly websites. I'm grateful for this opportunity!",
+      image: "https://i.pravatar.cc/150?u=female1", // Female image
     },
     {
       name: "Michael H.",
       field: "App Development Intern",
       message:
         "Being an app development intern here has exceeded my expectations. The exposure to real-world app development projects and the guidance from experienced professionals have significantly sharpened my skills. I feel well-prepared to embark on a career in mobile app development!",
+      image: "https://i.pravatar.cc/150?u=male1", // Male image
     },
     {
       name: "Jessica R.",
       field: "Data Science Intern",
       message:
         "As a data science intern, I've had the chance to work on cutting-edge projects that have deepened my understanding of data analysis and machine learning algorithms. The supportive environment here has allowed me to thrive and expand my knowledge in this exciting field!",
+      image: "https://i.pravatar.cc/150?u=female2", // Female image
     },
     {
       name: "Daniel W.",
       field: "Java Development Intern",
       message:
         "My internship experience in Java development has been fantastic. I've had the opportunity to work on challenging projects and collaborate with talented developers. The skills I've gained here are invaluable and will undoubtedly propel my career in software development!",
+      image: "https://i.pravatar.cc/150?u=male2", // Male image
     },
     {
       name: "Sophie L.",
       field: "AI Intern",
       message:
         "This AI internship has been an enriching journey for me. I've had the chance to delve into advanced AI concepts and apply them to real-world problems. The guidance from experts in the field has been instrumental in my growth as an AI enthusiast!",
+      image: "https://i.pravatar.cc/150?u=female3", // Female image
     },
     {
       name: "Alex P.",
       field: "Python Development Intern",
       message:
         "As a Python development intern, I've had access to meaningful projects that have honed my programming skills. The supportive team environment and mentorship have fostered my professional growth and prepared me for a successful career in software engineering!",
+      image: "https://i.pravatar.cc/150?u=male3", // Male image
     },
     {
       name: "Natalie S.",
       field: "Graphic Design Intern",
       message:
         "My internship in graphic design has been incredibly rewarding. I've had the opportunity to unleash my creativity and work on diverse projects that have enriched my portfolio. The feedback and guidance from experienced designers have been invaluable in refining my skills!",
+      image: "https://i.pravatar.cc/150?u=female6", // Female image
     },
     {
       name: "Ryan T.",
       field: "Content Writing Intern",
       message:
         "This content writing internship has been a fantastic learning experience. I've had the chance to sharpen my writing skills across various formats and topics. The constructive feedback and mentorship provided have been instrumental in my growth as a content creator!",
+      image: "https://i.pravatar.cc/150?u=male4", // Male image
     },
   ];
+  
 
   const totalTestimonials = testimonials.length;
 
@@ -95,7 +103,7 @@ const Testimonials = () => {
                   >
                     <div className="w-full">
                       <img
-                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                        src={testimonial.image}
                         className="w-10 h-10 rounded-full"
                       />
                     </div>

@@ -52,8 +52,8 @@ export default function Home() {
 
   const handlePaymentRequest = async () => {
     var options = {
-      key: "rzp_test_JcgHgVhruPREWK",
-      key_secret: "pCOq1NJwb8u8Rcj92LrtSzQv",
+      key: process.env.REACT_APP_RazorpayLiveKey,//"rzp_test_JcgHgVhruPREWK",//"rzp_live_dvaVhkn5iCsDDe",//"rzp_test_JcgHgVhruPREWK",
+      key_secret: process.env.REACT_APP_RazorpayLiveSecret,//"pCOq1NJwb8u8Rcj92LrtSzQv",//"zvDsoKvgNXPk5k6CjPGkTOWe",//"pCOq1NJwb8u8Rcj92LrtSzQv",
       amount: "9900",
       currency: "INR",
       name: "CodeDynamos",
@@ -129,7 +129,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex md:flex-row flex-col justify-center items-center h-screen bg-gradient-to-br from-gray-900 to-gray-500 text-white ">
+    <div className="flex md:flex-row flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-500 text-white ">
       <img src="/reallogo.png" alt="Logo" className="md:w-1/2 w-24 " />
       <div className="md:w-1/2 flex justify-center flex-col items-center">
         <h1 className="text-3xl font-semibold mb-8 text-zinc-300">
@@ -210,7 +210,7 @@ export default function Home() {
               </div>
             </>
           )}
-          {userData && userData.sector !== "web development" && (
+          {userData && userData.sector !== "Web Development Intern" && (
             <>
               <div className="mb-4">
                 <Input

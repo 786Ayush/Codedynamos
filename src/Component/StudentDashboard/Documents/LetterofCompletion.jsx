@@ -109,7 +109,7 @@ const letter=`<!DOCTYPE html>
           <div class="background-overlay"></div>
           <p>
             This is to certify that Ayush Gupta, a student of CSE at GL Bajaj
-            Group of Institutions, worked as an intern with CodeClause from
+            Group of Institutions, worked as an intern with CodeDynamos from
             January 2023 to February 2023.
           </p>
 
