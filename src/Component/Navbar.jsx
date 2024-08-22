@@ -48,7 +48,7 @@ const Navbar = () => {
     >
       {/* Logo on the left */}
       <div className="flex items-center">
-        <img src="/reallogo.png" alt="Logo" className="h-16 w-full mr-2" />
+        <img src="/reallogo.png" alt="Logo" className="h-16 w-auto mr-2" />
         {/* <span className="text-xl font-bold">YourLogo</span> */}
       </div>
 
