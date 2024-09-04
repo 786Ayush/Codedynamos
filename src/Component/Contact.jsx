@@ -79,7 +79,7 @@ const Contact = () => {
                 <div className="mb-2 text-gray-700 flex justify-around">
                   <div className="font-semibold w-[100px]">Instagram:</div>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/codedynamos/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-[200px] flex items-center text-[#E1306C] hover:text-[#b81d5d] transition-colors duration-300"
@@ -90,7 +90,7 @@ const Contact = () => {
                 <div className="mb-2 text-gray-700 flex justify-around">
                   <div className="font-semibold w-[100px]">X:</div>
                   <a
-                    href="#"
+                    href="https://x.com/CodeDynamos"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-[200px] flex items-center text-[#1DA1F2] hover:text-[#0d95e8] transition-colors duration-300"
@@ -101,7 +101,7 @@ const Contact = () => {
                 <div className="mb-2 text-gray-700 flex justify-around">
                   <div className="font-semibold w-[100px]">Linked In:</div>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/company/codedynamos/about/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-[200px] flex items-center text-[#0A66C2] hover:text-[#004182] transition-colors duration-300"
