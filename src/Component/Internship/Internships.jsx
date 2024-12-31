@@ -4,6 +4,7 @@ import Footer from "../Foot";
 import { Link } from "@nextui-org/react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { MdOutlineAvTimer } from "react-icons/md";
+import { Helmet } from "react-helmet";
 
 const Internships = () => {
   const InternshipDomains = [
@@ -29,6 +30,32 @@ const Internships = () => {
 
   return (
     <>
+    <Helmet>
+        <title>Explore Exciting Internships at CodeDynamos</title>
+        <meta
+          name="description"
+          content="Discover a wide range of internship opportunities at CodeDynamos. Choose from web development, app development, data science, and more to kickstart your career!"
+        />
+        <meta
+          name="keywords"
+          content="internships, freshers, CodeDynamos internships, web development, app development, data science internships"
+        />
+        <meta property="og:title" content="Explore Exciting Internships at CodeDynamos" />
+        <meta
+          property="og:description"
+          content="Browse a curated list of internship opportunities. Apply now to start your journey in web development, app development, IT consulting, and more!"
+        />
+        <meta property="og:image" content="/internships-preview.png" />
+        <meta property="og:url" content="https://www.codedynamos.com/internships" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Explore Exciting Internships at CodeDynamos" />
+        <meta
+          name="twitter:description"
+          content="Find your perfect internship at CodeDynamos! We offer roles in web development, app development, IT services, and more."
+        />
+        <meta name="twitter:image" content="/internships-preview.png" />
+      </Helmet>
       <Navbar />
       <div className="flex items-center justify-between flex-col bg-gray-200">
         <div className="text-center my-8 sm:text-4xl text-xl font-bold max-w-screen-xl mx-auto p-2">

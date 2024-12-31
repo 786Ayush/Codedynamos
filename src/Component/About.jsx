@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Foot";
 import Testimonials from "./Testimonials";
+import { Helmet } from "react-helmet";
 
 const About = () => {
   const [activeButton, setActiveButton] = useState("Our-Organization");
@@ -27,6 +28,16 @@ const About = () => {
 
   return (
     <>
+    <Helmet>
+        <title>About Us - CodeDynamos</title>
+        <meta name="description" content="Learn more about CodeDynamos, our mission, and how we help freshers kickstart their careers." />
+        <meta name="keywords" content="about codedynamos, IT consulting, internships for freshers, mission" />
+        <meta property="og:title" content="About Us - CodeDynamos" />
+        <meta property="og:description" content="Learn more about CodeDynamos, our mission, and how we help freshers kickstart their careers." />
+        <meta property="og:image" content="/about-us.png" />
+        <meta property="og:url" content="https://www.codedynamos.com/about" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <div className="min-h-screen bg-gray-200">
         <div className="flex justify-center py-8 ">

@@ -12,10 +12,37 @@ import { MdOutlineLogin } from "react-icons/md";
 import { MdCallReceived } from "react-icons/md";
 import { BiTask } from "react-icons/bi";
 import { CiGift } from "react-icons/ci";
+import { Helmet } from "react-helmet";
 
 const Roadmap = () => {
   return (
     <>
+    <Helmet>
+        <title>Internship Roadmap: Your Guide to Success | CodeDynamos</title>
+        <meta
+          name="description"
+          content="Follow the detailed internship roadmap at CodeDynamos to prepare, apply, and excel in your internship journey. Start your career with confidence!"
+        />
+        <meta
+          name="keywords"
+          content="internship roadmap, career guidance, internship preparation, CodeDynamos roadmap, internship success"
+        />
+        <meta property="og:title" content="Internship Roadmap: Your Guide to Success | CodeDynamos" />
+        <meta
+          property="og:description"
+          content="Discover the step-by-step roadmap to successfully land and excel in internships at CodeDynamos. Empower your career today!"
+        />
+        <meta property="og:image" content="/roadmap-preview.png" />
+        <meta property="og:url" content="https://www.codedynamos.com/roadmap" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Internship Roadmap: Your Guide to Success | CodeDynamos" />
+        <meta
+          name="twitter:description"
+          content="Step into a successful career with our comprehensive internship roadmap. Learn how to prepare, apply, and thrive in your internship journey!"
+        />
+        <meta name="twitter:image" content="/roadmap-preview.png" />
+      </Helmet>
       <Navbar />
       <VerticalTimeline>
         <VerticalTimelineElement

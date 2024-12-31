@@ -3,6 +3,7 @@ import Footer from "./Foot";
 import Navbar from "./Navbar";
 import { supabase } from "../utils/Supabase";
 import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -47,6 +48,32 @@ const Contact = () => {
 
   return (
     <>
+    <Helmet>
+        <title>Contact Us | CodeDynamos</title>
+        <meta
+          name="description"
+          content="Have questions or need assistance? Contact CodeDynamos to learn more about internship opportunities and our services. We're here to help!"
+        />
+        <meta
+          name="keywords"
+          content="contact CodeDynamos, internship support, reach out, assistance, get in touch"
+        />
+        <meta property="og:title" content="Contact Us | CodeDynamos" />
+        <meta
+          property="og:description"
+          content="Reach out to CodeDynamos for inquiries about internships, projects, and more. We're happy to assist you!"
+        />
+        <meta property="og:image" content="/contact-page-preview.png" />
+        <meta property="og:url" content="https://www.codedynamos.com/contact" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Us | CodeDynamos" />
+        <meta
+          name="twitter:description"
+          content="Have questions about internships or services? Contact CodeDynamos to get your answers today!"
+        />
+        <meta name="twitter:image" content="/contact-page-preview.png" />
+      </Helmet>
       <div className="">
         <Navbar />
         <div className="font-sans">
