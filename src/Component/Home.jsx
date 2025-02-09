@@ -11,7 +11,7 @@ const Home = () => {
       <Navbar />
       <div
         className="flex h-screen bg-cover"
-        style={{ backgroundImage: "url('/bg-home.jpg')" }}
+        style={{ backgroundImage: "url('/bg-home.avif')" }}
       >
         <div className="flex flex-col justify-center text-white p-8 bg-black bg-opacity-50 w-full text-left h-screen">
           <div className="w-1/2 ">
